@@ -1,6 +1,7 @@
-import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
+import { RegisterFormCard } from "./components/organisms/card/RegisterFormCard";
 
 type User = {
   id: number;
@@ -41,15 +42,10 @@ function App() {
     fetchUsers();
   }, []);
   return (
-    <div className="container-bg-color min-h-screen text-center py-10">
-      <p className="text-blue-600 text-2xl">Hello Tailwind CSS</p>
-      {!loading && (
-        <ul>
-          {users.map((user) => {
-            return <li key={user.id}>{user.username}</li>;
-          })}
-        </ul>
-      )}
+    <div className="bg-grayA">
+      <main className="flex items-center justify-center min-h-screen">
+        <RegisterFormCard />
+      </main>
     </div>
   );
 }
