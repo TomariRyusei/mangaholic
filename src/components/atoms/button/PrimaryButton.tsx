@@ -3,14 +3,16 @@ import { memo, ReactNode, VFC } from "react";
 type Props = {
   children: ReactNode;
   disabled?: boolean;
+  colorName: string;
+  colorDepth?: string;
   onClick: () => void;
 };
 export const PrimaryButton: VFC<Props> = memo((props) => {
-  const { children, disabled, onClick } = props;
+  const { children, disabled, colorName, colorDepth = "", onClick } = props;
   if (disabled) {
     return (
       <button
-        className="bg-transparent hover:bg-navy text-navy font-semibold hover:text-white py-2 px-4 mr-4 border border-navy hover:border-transparent rounded opacity-50 cursor-not-allowed"
+        className={`bg-${colorName}${colorDepth} text-white text-sm w-full py-2 px-4 mr-4 rounded opacity-50 cursor-not-allowed max-h-10`}
         disabled={disabled}
       >
         {children}
@@ -19,7 +21,7 @@ export const PrimaryButton: VFC<Props> = memo((props) => {
   } else {
     return (
       <button
-        className="bg-transparent hover:bg-navy text-navy font-semibold hover:text-white py-2 px-4 mr-4 border border-navy hover:border-transparent rounded"
+        className={`bg-${colorName}${colorDepth} hover:bg-opacity-80 text-white text-sm w-full py-2 px-4 mr-4 transform hover:scale-105 transition-transform rounded max-h-10`}
         onClick={onClick}
       >
         {children}

@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         navy: "#003f6b",
         grayA: "#e5e5e5",
+        twitterBlue: "#00acee",
+        googleRed: "#DB4437",
+        githubBlack: "#171515",
       },
     },
   },
