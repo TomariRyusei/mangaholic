@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { RegisterFormCard } from "./components/organisms/card/RegisterFormCard";
+import { RegisterForm } from "./components/organisms/form/RegisterForm";
+import { LoginForm } from "./components/organisms/form/LoginForm";
 
 type User = {
   id: number;
@@ -43,8 +44,10 @@ function App() {
   }, []);
   return (
     <div className="bg-grayA">
+      {/* <div className="bg-white"> */}
       <main className="flex items-center justify-center min-h-screen">
-        <RegisterFormCard />
+        {/* <RegisterForm /> */}
+        <LoginForm />
       </main>
     </div>
   );
