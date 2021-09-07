@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 import { RegisterForm } from "./components/organisms/form/RegisterForm";
 import { LoginForm } from "./components/organisms/form/LoginForm";
+import { Navbar } from "./components/organisms/layout/Navbar";
+import { Footer } from "./components/organisms/layout/Footer";
 
 type User = {
   id: number;
@@ -43,12 +45,17 @@ function App() {
     fetchUsers();
   }, []);
   return (
-    <div className="bg-grayA">
-      {/* <div className="bg-white"> */}
-      <main className="flex items-center justify-center min-h-screen">
+    <div className="bg-white flex flex-col min-h-screen">
+      <header>
+        <Navbar />
+      </header>
+      <main className="flex items-center justify-center">
         {/* <RegisterForm /> */}
         <LoginForm />
       </main>
+      <footer className="my-auto w-full">
+        <Footer />
+      </footer>
     </div>
   );
 }
