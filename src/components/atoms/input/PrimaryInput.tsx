@@ -1,10 +1,10 @@
-import { memo, VFC } from "react";
+import { ChangeEvent, memo, VFC } from "react";
 
 type Props = {
   type: string;
   placeholder?: string;
   id: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 export const PrimaryInput: VFC<Props> = memo((props) => {
   const { type, placeholder, id, onChange } = props;

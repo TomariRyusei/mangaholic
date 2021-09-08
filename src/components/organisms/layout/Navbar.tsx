@@ -1,4 +1,5 @@
 import { memo, VFC } from "react";
+import { Link } from "react-router-dom";
 
 import { InputSearch } from "../../molecules/InputSearch";
 
@@ -11,7 +12,7 @@ export const Navbar: VFC<Props> = memo((props) => {
   };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-grayA p-6 mb-6">
+    <nav className="flex items-center justify-between flex-wrap bg-grayA p-4 mb-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         {/* <svg
           className="fill-current h-8 w-8 mr-2"
@@ -22,9 +23,9 @@ export const Navbar: VFC<Props> = memo((props) => {
         >
           <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
         </svg> */}
-        <span className="font-bold text-2xl tracking-tight text-navy">
+        <Link to="/" className="font-bold text-xl tracking-tight text-navy">
           mangaholic
-        </span>
+        </Link>
       </div>
       <div className="block lg:hidden">
         <button
@@ -48,33 +49,41 @@ export const Navbar: VFC<Props> = memo((props) => {
         <div className="lg:flex-grow">
           <a
             href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-lg mr-4"
+            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md mr-4"
           >
             Docs
           </a>
           <a
             href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-lg mr-4"
+            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md mr-4"
           >
             Examples
           </a>
           <a
             href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-lg"
+            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md"
           >
             Blog
           </a>
         </div>
-        <div className="mr-6 lg:block hidden">
+        <div className="px-3 lg:block hidden">
           <InputSearch />
         </div>
         <div>
-          <a
-            href="#"
-            className="inline-block text-sm px-4 py-2 leading-none border-2 rounded text-navy border-navy font-semibold text-lg mt-4 lg:mt-0 transform hover:scale-105 transition-transform"
+          <Link
+            to="/login"
+            className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
           >
-            Download
-          </a>
+            ログイン
+          </Link>
+        </div>
+        <div>
+          <Link
+            to="/register"
+            className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+          >
+            アカウント作成
+          </Link>
         </div>
       </div>
     </nav>

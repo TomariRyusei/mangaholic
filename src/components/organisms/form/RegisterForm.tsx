@@ -1,20 +1,43 @@
-import { memo, VFC } from "react";
+import { ChangeEvent, useEffect, useState, memo, VFC } from "react";
+import { useHistory, Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { InputMail } from "../../molecules/InputMail";
-import { InputUserName } from "../../molecules/InputUserName";
 import { InputPassword } from "../../molecules/InputPassword";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { TwitterButton } from "../../atoms/button/TwitterButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
+import { auth } from "../../firebase";
 
 type Props = {
   //   onChange: () => void;
 };
 
 export const RegisterForm: VFC<Props> = memo((props) => {
-  const onClickRegister = () => {
-    alert("会員登録");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const history = useHistory();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user && history.push("/");
+    });
+  }, [history]);
+
+  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const onClickRegister = async () => {
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      alert("アカウント作成に成功しました");
+      history.push("/");
+    } catch (err: any) {
+      alert(err);
+    }
   };
   const onClickTwitterRegister = () => {
     alert("twitter");
@@ -22,23 +45,17 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   const onClickGoogleRegister = () => {
     alert("goolge");
   };
-  const onClickGihubRegister = () => {
-    alert("github");
-  };
 
   return (
-    <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl p-8 my-6">
+    <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
       <div className="mb-6">
         <PrimaryLabel>アカウント作成</PrimaryLabel>
       </div>
-      <div className="mb-4">
-        <InputUserName />
-      </div>
-      <div className="mb-4">
-        <InputMail />
+      <div className="mb-6">
+        <InputMail onChange={onChangeInputMail} />
       </div>
       <div className="mb-6">
-        <InputPassword />
+        <InputPassword onChange={onChangePassword} />
       </div>
       <div className="mt-6 mb-2">
         <PrimaryButton
@@ -62,15 +79,12 @@ export const RegisterForm: VFC<Props> = memo((props) => {
           Googleアカウントで登録
         </GoogleButton>
       </div>
-      <a
-        href="/login"
+      <Link
+        to="/login"
         className="block text-gray-600 hover:underline text-xs my-1"
       >
         アカウントをお持ちの方はこちら
-      </a>
-      <a href="#" className="blocktext-gray-600 hover:underline text-xs my-1">
-        キャンセル
-      </a>
+      </Link>
     </div>
   );
 });
