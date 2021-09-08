@@ -1,12 +1,11 @@
 import { memo, VFC } from "react";
 
 import { MainLayout } from "../templates/MainLayout";
-import { LoginForm } from "../organisms/form/LoginForm";
 
-export const Login: VFC = memo(() => {
+export const Page404: VFC = memo(() => {
   return (
     <MainLayout>
-      <LoginForm />
+      <p>404: ページが見つかりません。</p>
     </MainLayout>
   );
 });

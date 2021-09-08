@@ -1,23 +1,20 @@
-import { memo, VFC } from "react";
+import { ChangeEvent, memo, VFC } from "react";
 
 import { PrimaryInput } from "../atoms/input/PrimaryInput";
 
 type Props = {
-  //   onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 export const InputUserName: VFC<Props> = memo((props) => {
-  //   const { onChange } = props;
-  // バリエーション処理を行う
-  const onChangeUserNameValidate = () => {
-    console.log("username");
-  };
+  const { onChange } = props;
+
   return (
     <>
       <PrimaryInput
         type={"text"}
         placeholder={"ユーザー名"}
         id={"usename"}
-        onChange={onChangeUserNameValidate}
+        onChange={onChange}
       />
     </>
   );
