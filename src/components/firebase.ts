@@ -12,6 +12,13 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
+
+// firebaseパスワードリセット後のリダイレクトの設定
+export const actionCodeSettings = {
+  url: "http://localhost:3000/login",
+  handleCodeInApp: false,
+};
+
 firebase.initializeApp(firebaseConfig);
 // export const auth = firebase.auth();
 export default firebase;
