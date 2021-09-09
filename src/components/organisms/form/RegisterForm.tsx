@@ -7,7 +7,7 @@ import { InputPassword } from "../../molecules/InputPassword";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { TwitterButton } from "../../atoms/button/TwitterButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
-import { auth } from "../../firebase";
+import firebase from "../../firebase";
 
 type Props = {
   //   onChange: () => void;
@@ -19,7 +19,7 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   const history = useHistory();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged((user) => {
       user && history.push("/");
     });
   }, [history]);
@@ -32,7 +32,7 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   };
   const onClickRegister = async () => {
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
       alert("アカウント作成に成功しました");
       history.push("/");
     } catch (err: any) {
@@ -42,8 +42,13 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   const onClickTwitterRegister = () => {
     alert("twitter");
   };
-  const onClickGoogleRegister = () => {
-    alert("goolge");
+  const onClickGoogleRegister = async () => {
+    try {
+      const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      await firebase.auth().signInWithRedirect(googleAuthProvider);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   return (
