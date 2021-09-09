@@ -8,6 +8,7 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { TwitterButton } from "../../atoms/button/TwitterButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
+import { useAuth } from "../../../hooks/useAuth";
 
 type Props = {
   //   onChange: () => void;
@@ -17,6 +18,7 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
+  const { authErrorHandling } = useAuth();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -36,7 +38,8 @@ export const RegisterForm: VFC<Props> = memo((props) => {
       alert("アカウント作成に成功しました");
       history.push("/");
     } catch (err: any) {
-      alert(err);
+      const msg = authErrorHandling(err.code);
+      alert(msg);
     }
   };
   const onClickTwitterRegister = () => {
@@ -47,7 +50,8 @@ export const RegisterForm: VFC<Props> = memo((props) => {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       await firebase.auth().signInWithRedirect(googleAuthProvider);
     } catch (err: any) {
-      console.log(err);
+      const msg = authErrorHandling(err.code);
+      alert(msg);
     }
   };
 

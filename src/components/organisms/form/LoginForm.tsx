@@ -8,6 +8,7 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { TwitterButton } from "../../atoms/button/TwitterButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
+import { useAuth } from "../../../hooks/useAuth";
 
 type Props = {
   //   onChange: () => void;
@@ -17,6 +18,7 @@ export const LoginForm: VFC<Props> = memo((props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const { authErrorHandling } = useAuth();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -36,7 +38,8 @@ export const LoginForm: VFC<Props> = memo((props) => {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       alert("ログインに成功しました");
     } catch (err: any) {
-      alert(err);
+      const msg = authErrorHandling(err.code);
+      alert(msg);
     }
   };
   const onClickTwitterLogin = () => {
@@ -49,7 +52,8 @@ export const LoginForm: VFC<Props> = memo((props) => {
       await firebase.auth().signInWithRedirect(googleAuthProvider);
       history.push("/");
     } catch (err: any) {
-      console.log(err);
+      const msg = authErrorHandling(err.code);
+      alert(msg);
     }
   };
 
