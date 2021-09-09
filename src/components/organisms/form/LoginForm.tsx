@@ -10,11 +10,7 @@ import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
 
-type Props = {
-  //   onChange: () => void;
-};
-
-export const LoginForm: VFC<Props> = memo((props) => {
+export const LoginForm: VFC = memo((props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -49,7 +45,7 @@ export const LoginForm: VFC<Props> = memo((props) => {
   const onClickGoogleLogin = async () => {
     try {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-      await firebase.auth().signInWithRedirect(googleAuthProvider);
+      await firebase.auth().signInWithPopup(googleAuthProvider);
       history.push("/");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
@@ -92,9 +88,15 @@ export const LoginForm: VFC<Props> = memo((props) => {
       </div>
       <Link
         to="/register"
-        className="block text-gray-600 hover:underline text-xs my-1"
+        className="block text-gray-600 hover:underline text-xs my-2"
       >
         アカウント作成はこちら
+      </Link>
+      <Link
+        to="/forgot_password"
+        className="block text-gray-600 hover:underline text-xs my-2"
+      >
+        パスワードをお忘れの方はこちら
       </Link>
     </div>
   );

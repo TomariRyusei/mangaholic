@@ -10,11 +10,7 @@ import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
 
-type Props = {
-  //   onChange: () => void;
-};
-
-export const RegisterForm: VFC<Props> = memo((props) => {
+export const RegisterForm: VFC = memo((props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
@@ -48,7 +44,7 @@ export const RegisterForm: VFC<Props> = memo((props) => {
   const onClickGoogleRegister = async () => {
     try {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-      await firebase.auth().signInWithRedirect(googleAuthProvider);
+      await firebase.auth().signInWithPopup(googleAuthProvider);
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       alert(msg);
