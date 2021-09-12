@@ -2,8 +2,7 @@ import { ChangeEvent, useEffect, useState, memo, VFC } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
-import { InputMail } from "../../molecules/InputMail";
-import { InputPassword } from "../../molecules/InputPassword";
+import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
@@ -57,10 +56,20 @@ export const RegisterForm: VFC = memo((props) => {
         <PrimaryLabel>アカウント作成</PrimaryLabel>
       </div>
       <div className="mb-6">
-        <InputMail onChange={onChangeInputMail} />
+        <PrimaryInput
+          type={"email"}
+          placeholder={"メールアドレス"}
+          id={"email"}
+          onChange={onChangeInputMail}
+        />
       </div>
       <div className="mb-6">
-        <InputPassword onChange={onChangePassword} />
+        <PrimaryInput
+          type={"password"}
+          placeholder={"パスワード"}
+          id={"password"}
+          onChange={onChangePassword}
+        />
       </div>
       <div className="mt-6 mb-2">
         <PrimaryButton
