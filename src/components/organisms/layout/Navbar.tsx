@@ -1,7 +1,7 @@
 import { memo, VFC } from "react";
 import { Link } from "react-router-dom";
 
-import { InputSearch } from "../../molecules/InputSearch";
+import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 
 type Props = {
   //   onChange: () => void;
@@ -9,6 +9,10 @@ type Props = {
 export const Navbar: VFC<Props> = memo((props) => {
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
+  };
+
+  const onChangeSearch = () => {
+    console.log("search");
   };
 
   return (
@@ -67,7 +71,12 @@ export const Navbar: VFC<Props> = memo((props) => {
           </a>
         </div>
         <div className="px-3 lg:block hidden">
-          <InputSearch />
+          <PrimaryInput
+            type={"search"}
+            placeholder={"search"}
+            id={"search"}
+            onChange={onChangeSearch}
+          />
         </div>
         <div>
           <Link

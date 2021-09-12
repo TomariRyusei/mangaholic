@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState, memo, VFC } from "react";
 import { useHistory } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
-import { InputMail } from "../../molecules/InputMail";
+import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import firebase from "../../firebase";
 import { actionCodeSettings } from "../../firebase";
@@ -42,7 +42,12 @@ export const PasswordResetForm: VFC = memo(() => {
         </p>
       </div>
       <div className="mb-6">
-        <InputMail onChange={onChangeInputMail} />
+        <PrimaryInput
+          type={"email"}
+          placeholder={"メールアドレス"}
+          id={"email"}
+          onChange={onChangeInputMail}
+        />
       </div>
       <div className="mt-6 mb-2">
         <PrimaryButton
