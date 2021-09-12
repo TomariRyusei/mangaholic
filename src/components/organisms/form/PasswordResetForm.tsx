@@ -7,7 +7,7 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import firebase from "../../firebase";
 import { actionCodeSettings } from "../../firebase";
 
-export const PasswordResetForm: VFC = memo((props) => {
+export const PasswordResetForm: VFC = memo(() => {
   const [email, setEmail] = useState("");
   const history = useHistory();
 

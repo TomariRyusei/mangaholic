@@ -1,4 +1,4 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faGoogle, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
-library.add(faGoogle, faTwitter);
+library.add(faGoogle, faFacebook);
