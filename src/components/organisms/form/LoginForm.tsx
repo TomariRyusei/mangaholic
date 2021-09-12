@@ -5,7 +5,7 @@ import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { InputMail } from "../../molecules/InputMail";
 import { InputPassword } from "../../molecules/InputPassword";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import { TwitterButton } from "../../atoms/button/TwitterButton";
+import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
@@ -38,8 +38,8 @@ export const LoginForm: VFC = memo((props) => {
       alert(msg);
     }
   };
-  const onClickTwitterLogin = () => {
-    alert("twitter");
+  const onClickFacebookLogin = () => {
+    alert("Facebook");
   };
 
   const onClickGoogleLogin = async () => {
@@ -77,14 +77,14 @@ export const LoginForm: VFC = memo((props) => {
         <span className="text-lg font-light text-gray-600">or</span>
       </div>
       <div className="mb-6">
-        <TwitterButton onClick={onClickTwitterLogin}>
-          Twitterアカウントでログイン
-        </TwitterButton>
-      </div>
-      <div className="mb-6">
         <GoogleButton onClick={onClickGoogleLogin}>
           Googleアカウントでログイン
         </GoogleButton>
+      </div>
+      <div className="mb-6">
+        <FacebookButton onClick={onClickFacebookLogin}>
+          Facebookアカウントでログイン
+        </FacebookButton>
       </div>
       <Link
         to="/register"
