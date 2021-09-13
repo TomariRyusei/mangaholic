@@ -8,12 +8,14 @@ import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
+import { useFlashMessage } from "../../../hooks/useFlashMessage";
 
 export const LoginForm: VFC = memo((props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
   const { authErrorHandling } = useAuth();
+  const { showSuccessMessage, showErrorMessage } = useFlashMessage();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -31,10 +33,12 @@ export const LoginForm: VFC = memo((props) => {
   const onClickLogin = async () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert("ログインに成功しました");
+      showSuccessMessage("ログインしました");
+      history.push("/");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
-      alert(msg);
+      showErrorMessage(msg);
+      console.log(err);
     }
   };
   const onClickFacebookLogin = () => {
@@ -45,10 +49,11 @@ export const LoginForm: VFC = memo((props) => {
     try {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       await firebase.auth().signInWithPopup(googleAuthProvider);
-      history.push("/");
+      showSuccessMessage("ログインしました");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
-      alert(msg);
+      showErrorMessage(msg);
+      console.log(err);
     }
   };
 

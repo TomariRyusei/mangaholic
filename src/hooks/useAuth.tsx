@@ -9,12 +9,17 @@ export const useAuth = () => {
         msg =
           "パスワードに指定された値は無効です。6文字以上の文字列を指定する必要があります。";
         break;
+      case "auth/weak-password":
+        msg = "パスワードの強度が不足しています。";
+        break;
       case "auth/wrong-password":
         msg = "パスワードが正しくありません。";
         break;
       case "auth/email-already-exists":
-        msg =
-          "入力されたメールアドレスはすでに既存のユーザーによって使用されています。";
+        msg = "入力されたメールアドレスはすでに使用されています。";
+        break;
+      case "auth/email-already-in-use":
+        msg = "入力されたメールアドレスはすでに使用されています。";
         break;
       case "auth/user-not-found":
         msg = "ユーザーが存在しません。";
