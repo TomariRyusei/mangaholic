@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, memo, VFC } from "react";
+import { ChangeEvent, useEffect, useState, useContext, memo, VFC } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -6,11 +6,13 @@ import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
-import firebase from "../../firebase";
+import firebase from "../../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
 import { useFlashMessage } from "../../../hooks/useFlashMessage";
+import { AuthContext } from "../../../providers/Auth";
 
 export const RegisterForm: VFC = memo((props) => {
+  const { currentUser } = useContext(AuthContext);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
@@ -18,10 +20,9 @@ export const RegisterForm: VFC = memo((props) => {
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      user && history.push("/");
-    });
-  }, [history]);
+    console.log(currentUser?.displayName);
+    currentUser && history.push("/");
+  }, [history, currentUser]);
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);

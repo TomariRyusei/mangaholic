@@ -20,5 +20,4 @@ export const actionCodeSettings = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// export const auth = firebase.auth();
 export default firebase;
