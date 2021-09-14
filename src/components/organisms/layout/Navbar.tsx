@@ -1,12 +1,14 @@
-import { memo, VFC } from "react";
+import { memo, VFC, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
+import { AuthContext } from "../../../providers/Auth";
 
 type Props = {
   //   onChange: () => void;
 };
 export const Navbar: VFC<Props> = memo((props) => {
+  const { currentUser } = useContext(AuthContext);
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
   };
@@ -78,22 +80,35 @@ export const Navbar: VFC<Props> = memo((props) => {
             onChange={onChangeSearch}
           />
         </div>
-        <div>
-          <Link
-            to="/login"
-            className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
-          >
-            ログイン
-          </Link>
-        </div>
-        <div>
-          <Link
-            to="/register"
-            className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
-          >
-            アカウント作成
-          </Link>
-        </div>
+        {currentUser ? (
+          <div>
+            <Link
+              to="#"
+              className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+            >
+              {currentUser?.displayName}
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div>
+              <Link
+                to="/login"
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+              >
+                ログイン
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/register"
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+              >
+                アカウント作成
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );

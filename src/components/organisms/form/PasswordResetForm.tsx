@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import firebase from "../../firebase";
-import { actionCodeSettings } from "../../firebase";
+import firebase from "../../../firebase";
+import { actionCodeSettings } from "../../../firebase";
 
 export const PasswordResetForm: VFC = memo(() => {
   const [email, setEmail] = useState("");
