@@ -14,9 +14,17 @@ const AuthProvider = (props: Props) => {
   >(undefined);
   const { children } = props;
   useEffect(() => {
+    // メモリリークを回避
+    let isMounted = true;
     firebase.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      if (isMounted) {
+        setCurrentUser(user);
+      }
     });
+    // アンマウントの際にフラグを更新
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
