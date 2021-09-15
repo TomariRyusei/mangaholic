@@ -1,21 +1,18 @@
-import { memo, VFC, useContext } from "react";
+import { VFC, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { AuthContext } from "../../../providers/Auth";
 
-type Props = {
-  //   onChange: () => void;
-};
-export const Navbar: VFC<Props> = memo((props) => {
+export const Navbar: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
   };
 
-  const onChangeSearch = () => {
+  const onChangeSearch = useCallback(() => {
     console.log("search");
-  };
+  }, []);
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-grayA p-4 mb-6">
@@ -112,4 +109,4 @@ export const Navbar: VFC<Props> = memo((props) => {
       </div>
     </nav>
   );
-});
+};

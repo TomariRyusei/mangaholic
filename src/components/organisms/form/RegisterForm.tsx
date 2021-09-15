@@ -1,4 +1,11 @@
-import { ChangeEvent, useEffect, useState, useContext, memo, VFC } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+  useContext,
+  VFC,
+} from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -12,7 +19,7 @@ import { useFlashMessage } from "../../../hooks/useFlashMessage";
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AuthContext } from "../../../providers/Auth";
 
-export const RegisterForm: VFC = memo((props) => {
+export const RegisterForm: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -32,15 +39,21 @@ export const RegisterForm: VFC = memo((props) => {
     currentUser && history.push("/");
   }, [history, currentUser]);
 
-  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
-    emailValidation(e.target.value);
-    setEmail(e.target.value);
-  };
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    passwordValidation(e.target.value);
-    setPassword(e.target.value);
-  };
-  const onClickRegister = async () => {
+  const onChangeInputMail = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      emailValidation(e.target.value);
+      setEmail(e.target.value);
+    },
+    [emailValidation]
+  );
+  const onChangePassword = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      passwordValidation(e.target.value);
+      setPassword(e.target.value);
+    },
+    [passwordValidation]
+  );
+  const onClickRegister = useCallback(async () => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       showSuccessMessage("アカウントを作成しました");
@@ -50,11 +63,18 @@ export const RegisterForm: VFC = memo((props) => {
       showErrorMessage(msg);
       console.log(err);
     }
-  };
-  const onClickFacebookLogin = () => {
+  }, [
+    email,
+    password,
+    history,
+    authErrorHandling,
+    showSuccessMessage,
+    showErrorMessage,
+  ]);
+  const onClickFacebookLogin = useCallback(() => {
     alert("Facebook");
-  };
-  const onClickGoogleRegister = async () => {
+  }, []);
+  const onClickGoogleRegister = useCallback(async () => {
     try {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       await firebase.auth().signInWithPopup(googleAuthProvider);
@@ -64,7 +84,7 @@ export const RegisterForm: VFC = memo((props) => {
       showErrorMessage(msg);
       alert(msg);
     }
-  };
+  }, [authErrorHandling, showSuccessMessage, showErrorMessage]);
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
@@ -121,4 +141,4 @@ export const RegisterForm: VFC = memo((props) => {
       </Link>
     </div>
   );
-});
+};

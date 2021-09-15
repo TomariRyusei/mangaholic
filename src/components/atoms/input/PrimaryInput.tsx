@@ -8,6 +8,7 @@ type Props = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 export const PrimaryInput: VFC<Props> = memo((props) => {
+  console.log("PrimaryInput");
   const { type, placeholder, id, value, onChange } = props;
   return (
     <input
