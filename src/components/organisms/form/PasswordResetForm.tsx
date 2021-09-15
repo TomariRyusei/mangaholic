@@ -1,4 +1,11 @@
-import { ChangeEvent, useEffect, useState, memo, VFC } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+  memo,
+  VFC,
+} from "react";
 import { useHistory } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -20,11 +27,14 @@ export const PasswordResetForm: VFC = memo(() => {
     });
   }, [history]);
 
-  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
-    emailValidation(e.target.value);
-    setEmail(e.target.value);
-  };
-  const onClickSend = async () => {
+  const onChangeInputMail = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      emailValidation(e.target.value);
+      setEmail(e.target.value);
+    },
+    [emailValidation]
+  );
+  const onClickSend = useCallback(async () => {
     try {
       await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
       setEmail("");
@@ -33,7 +43,7 @@ export const PasswordResetForm: VFC = memo(() => {
       alert(err);
       console.log(err);
     }
-  };
+  }, [email, history]);
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">

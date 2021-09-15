@@ -1,4 +1,4 @@
-import { memo, VFC, useContext } from "react";
+import { VFC, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useFlashMessage } from "../../hooks/useFlashMessage";
@@ -6,7 +6,7 @@ import { MainLayout } from "../templates/MainLayout";
 import firebase from "../../firebase";
 import { AuthContext } from "../../providers/Auth";
 
-export const Home: VFC = memo(() => {
+export const Home: VFC = () => {
   const history = useHistory();
   const { currentUser } = useContext(AuthContext);
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
@@ -29,4 +29,4 @@ export const Home: VFC = memo(() => {
       {currentUser && <button onClick={onClickLogout}>ログアウト</button>}
     </MainLayout>
   );
-});
+};
