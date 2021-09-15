@@ -6,9 +6,12 @@ import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import firebase from "../../../firebase";
 import { actionCodeSettings } from "../../../firebase";
+import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export const PasswordResetForm: VFC = memo(() => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const { emailValidation, emailValidationMsg, emailIsValid } =
+    useFormValidation();
   const history = useHistory();
 
   useEffect(() => {
@@ -18,6 +21,7 @@ export const PasswordResetForm: VFC = memo(() => {
   }, [history]);
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    emailValidation(e.target.value);
     setEmail(e.target.value);
   };
   const onClickSend = async () => {
@@ -41,17 +45,19 @@ export const PasswordResetForm: VFC = memo(() => {
           パスワードをリセットするには、メール アドレスを入力してください。
         </p>
       </div>
+      <p className="text-xs text-red-600">{emailValidationMsg}</p>
       <div className="mb-6">
         <PrimaryInput
           type={"email"}
           placeholder={"メールアドレス"}
           id={"email"}
+          value={email}
           onChange={onChangeInputMail}
         />
       </div>
       <div className="mt-6 mb-2">
         <PrimaryButton
-          disabled={false}
+          disabled={!emailIsValid}
           colorName={"navy"}
           onClick={onClickSend}
         >

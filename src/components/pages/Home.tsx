@@ -26,7 +26,7 @@ export const Home: VFC = memo(() => {
   return (
     <MainLayout>
       <p>HOMEページです</p>
-      <button onClick={onClickLogout}>ログアウト</button>
+      {currentUser && <button onClick={onClickLogout}>ログアウト</button>}
     </MainLayout>
   );
 });
