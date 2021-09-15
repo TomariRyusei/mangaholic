@@ -9,25 +9,35 @@ import { GoogleButton } from "../../atoms/button/GoogleButton";
 import firebase from "../../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
 import { useFlashMessage } from "../../../hooks/useFlashMessage";
+import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AuthContext } from "../../../providers/Auth";
 
 export const LoginForm: VFC = memo((props) => {
   const { currentUser } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const history = useHistory();
   const { authErrorHandling } = useAuth();
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+  const {
+    emailValidation,
+    passwordValidation,
+    emailValidationMsg,
+    emailIsValid,
+    passwordValidationMsg,
+    passwordIsValid,
+  } = useFormValidation();
 
   useEffect(() => {
-    console.log(currentUser?.displayName);
     currentUser && history.push("/");
   }, [history, currentUser]);
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    emailValidation(e.target.value);
     setEmail(e.target.value);
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    passwordValidation(e.target.value);
     setPassword(e.target.value);
   };
 
@@ -64,24 +74,28 @@ export const LoginForm: VFC = memo((props) => {
         <PrimaryLabel>ログイン</PrimaryLabel>
       </div>
       <div className="mb-6">
+        <p className="text-xs text-red-600">{emailValidationMsg}</p>
         <PrimaryInput
           type={"email"}
           placeholder={"メールアドレス"}
           id={"email"}
+          value={email}
           onChange={onChangeInputMail}
         />
       </div>
       <div className="mb-6">
+        <p className="text-xs text-red-600">{passwordValidationMsg}</p>
         <PrimaryInput
           type={"password"}
           placeholder={"パスワード"}
           id={"password"}
+          value={password}
           onChange={onChangePassword}
         />
       </div>
       <div className="mt-6 mb-2">
         <PrimaryButton
-          disabled={false}
+          disabled={!emailIsValid || !passwordIsValid}
           colorName={"navy"}
           onClick={onClickLogin}
         >
