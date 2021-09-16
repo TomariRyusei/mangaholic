@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useState,
-  useContext,
-  VFC,
-} from "react";
+import { ChangeEvent, useEffect, useState, useContext, VFC } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -13,19 +6,16 @@ import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
-import firebase from "../../../firebase";
 import { useAuth } from "../../../hooks/useAuth";
-import { useFlashMessage } from "../../../hooks/useFlashMessage";
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { AuthContext } from "../../../providers/Auth";
 
 export const LoginForm: VFC = () => {
-  const { currentUser } = useContext(AuthContext);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
-  const { authErrorHandling } = useAuth();
-  const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+  const { currentUser } = useContext(AuthContext);
+  const { login, googleLogin } = useAuth();
   const {
     emailValidation,
     passwordValidation,
@@ -39,54 +29,27 @@ export const LoginForm: VFC = () => {
     currentUser && history.push("/");
   }, [history, currentUser]);
 
-  const onChangeInputMail = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      emailValidation(e.target.value);
-      setEmail(e.target.value);
-    },
-    [emailValidation]
-  );
-  const onChangePassword = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      passwordValidation(e.target.value);
-      setPassword(e.target.value);
-    },
-    [passwordValidation]
-  );
+  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    emailValidation(e.target.value);
+    setEmail(e.target.value);
+  };
 
-  const onClickLogin = useCallback(async () => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      showSuccessMessage("ログインしました");
-      history.push("/");
-    } catch (err: any) {
-      const msg = authErrorHandling(err.code);
-      showErrorMessage(msg);
-      console.log(err);
-    }
-  }, [
-    email,
-    password,
-    history,
-    authErrorHandling,
-    showSuccessMessage,
-    showErrorMessage,
-  ]);
-  const onClickFacebookLogin = useCallback(() => {
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    passwordValidation(e.target.value);
+    setPassword(e.target.value);
+  };
+
+  const onClickLogin = async () => {
+    await login(email, password);
+  };
+
+  const onClickFacebookLogin = () => {
     alert("Facebook");
-  }, []);
+  };
 
-  const onClickGoogleLogin = useCallback(async () => {
-    try {
-      const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-      await firebase.auth().signInWithPopup(googleAuthProvider);
-      showSuccessMessage("ログインしました");
-    } catch (err: any) {
-      const msg = authErrorHandling(err.code);
-      showErrorMessage(msg);
-      console.log(err);
-    }
-  }, [authErrorHandling, showSuccessMessage, showErrorMessage]);
+  const onClickGoogleLogin = async () => {
+    await googleLogin();
+  };
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">

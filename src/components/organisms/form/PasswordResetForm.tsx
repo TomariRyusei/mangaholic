@@ -1,49 +1,33 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useState,
-  memo,
-  VFC,
-} from "react";
+import { ChangeEvent, useEffect, useContext, useState, memo, VFC } from "react";
 import { useHistory } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
-import firebase from "../../../firebase";
-import { actionCodeSettings } from "../../../firebase";
+import { useAuth } from "../../../hooks/useAuth";
 import { useFormValidation } from "../../../hooks/useFormValidation";
+import { AuthContext } from "../../../providers/Auth";
 
 export const PasswordResetForm: VFC = memo(() => {
   const [email, setEmail] = useState<string>("");
+  const { currentUser } = useContext(AuthContext);
+  const { passwirdReset } = useAuth();
   const { emailValidation, emailValidationMsg, emailIsValid } =
     useFormValidation();
   const history = useHistory();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      user && history.push("/");
-    });
-  }, [history]);
+    currentUser && history.push("/");
+  }, [currentUser, history]);
 
-  const onChangeInputMail = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      emailValidation(e.target.value);
-      setEmail(e.target.value);
-    },
-    [emailValidation]
-  );
-  const onClickSend = useCallback(async () => {
-    try {
-      await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
-      setEmail("");
-      history.push("/login");
-    } catch (err: any) {
-      alert(err);
-      console.log(err);
-    }
-  }, [email, history]);
+  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    emailValidation(e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const onClickSend = async () => {
+    await passwirdReset(email);
+  };
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">

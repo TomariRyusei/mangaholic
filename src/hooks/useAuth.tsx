@@ -1,4 +1,71 @@
+import { useHistory } from "react-router-dom";
+
+import firebase from "../firebase";
+import { actionCodeSettings } from "../firebase";
+import { useFlashMessage } from "./useFlashMessage";
+
 export const useAuth = () => {
+  const history = useHistory();
+  const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+
+  const login = async (email: string, password: string) => {
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      showSuccessMessage("ログインしました");
+      history.push("/");
+    } catch (err: any) {
+      const msg = authErrorHandling(err.code);
+      showErrorMessage(msg);
+      console.log(err);
+    }
+  };
+
+  const register = async (email: string, password: string) => {
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      showSuccessMessage("アカウントを作成しました");
+      history.push("/");
+    } catch (err: any) {
+      const msg = authErrorHandling(err.code);
+      showErrorMessage(msg);
+      console.log(err);
+    }
+  };
+
+  const googleLogin = async () => {
+    try {
+      const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      await firebase.auth().signInWithPopup(googleAuthProvider);
+      showSuccessMessage("ログインしました");
+    } catch (err: any) {
+      const msg = authErrorHandling(err.code);
+      showErrorMessage(msg);
+      console.log(err);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await firebase.auth().signOut();
+      showSuccessMessage("ログアウトしました");
+      history.push("/login");
+    } catch (err: any) {
+      console.log(err);
+      showErrorMessage("ログアウトに失敗しました");
+    }
+  };
+
+  const passwirdReset = async (email: string) => {
+    try {
+      await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
+      showSuccessMessage("パスワード再設定用のメールを送信しました");
+      history.push("/login");
+    } catch (err: any) {
+      console.log(err);
+      showErrorMessage("パスワード再設定用のメールの送信に失敗しました");
+    }
+  };
+
   const authErrorHandling = (code: string): string => {
     let msg = "";
     switch (code) {
@@ -35,5 +102,5 @@ export const useAuth = () => {
     return msg;
   };
 
-  return { authErrorHandling };
+  return { login, register, googleLogin, logout, passwirdReset };
 };
