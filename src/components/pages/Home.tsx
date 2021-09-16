@@ -1,28 +1,17 @@
 import { VFC, useContext } from "react";
-import { useHistory } from "react-router-dom";
 
-import { useFlashMessage } from "../../hooks/useFlashMessage";
 import { MainLayout } from "../templates/MainLayout";
-import firebase from "../../firebase";
 import { AuthContext } from "../../providers/Auth";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Home: VFC = () => {
-  const history = useHistory();
   const { currentUser } = useContext(AuthContext);
-  const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+  const { logout } = useAuth();
 
   const onClickLogout = async () => {
-    try {
-      await firebase.auth().signOut();
-      showSuccessMessage(
-        `ログアウトしました さようなら${currentUser?.displayName}さん`
-      );
-      history.push("/login");
-    } catch (err: any) {
-      console.log(err);
-      showErrorMessage("ログアウトに失敗しました");
-    }
+    await logout();
   };
+
   return (
     <MainLayout>
       <p>HOMEページです</p>
