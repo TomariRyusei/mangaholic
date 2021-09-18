@@ -33,7 +33,7 @@ export const useFormValidation = () => {
       return false;
     }
     // 6文字以上、英数字が混在、大文字と小文字のアルファベットが含まれる
-    const regex = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{6,}$/;
+    const regex = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[!-~]{6,}$/;
     if (!regex.test(value)) {
       setPasswordValidationMsg(
         "※パスワードは6文字以上、半角の英小文、字大文字、数字をそれぞれ1種類以上含ませてください"
