@@ -54,7 +54,7 @@ export const LoginForm: VFC = () => {
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
       <div className="mb-6">
-        <PrimaryLabel>ログイン</PrimaryLabel>
+        <PrimaryLabel testid={"loginLabel"}>ログイン</PrimaryLabel>
       </div>
       <div className="mb-6">
         <p className="text-xs text-red-600">{emailValidationMsg}</p>
@@ -63,6 +63,7 @@ export const LoginForm: VFC = () => {
           placeholder={"メールアドレス"}
           id={"email"}
           value={email}
+          testid={"emailInput"}
           onChange={onChangeInputMail}
         />
       </div>
@@ -73,6 +74,7 @@ export const LoginForm: VFC = () => {
           placeholder={"パスワード"}
           id={"password"}
           value={password}
+          testid={"passwordInput"}
           onChange={onChangePassword}
         />
       </div>
@@ -80,6 +82,7 @@ export const LoginForm: VFC = () => {
         <PrimaryButton
           disabled={!emailIsValid || !passwordIsValid}
           colorName={"navy"}
+          testid={"loginButton"}
           onClick={onClickLogin}
         >
           ログイン
@@ -89,24 +92,29 @@ export const LoginForm: VFC = () => {
         <span className="text-lg font-light text-gray-600">or</span>
       </div>
       <div className="mb-6">
-        <GoogleButton onClick={onClickGoogleLogin}>
+        <GoogleButton testid={"googleLoginButton"} onClick={onClickGoogleLogin}>
           Googleアカウントでログイン
         </GoogleButton>
       </div>
       <div className="mb-6">
-        <FacebookButton onClick={onClickFacebookLogin}>
+        <FacebookButton
+          testid={"facebookLoginButton"}
+          onClick={onClickFacebookLogin}
+        >
           Facebookアカウントでログイン
         </FacebookButton>
       </div>
       <Link
         to="/register"
         className="block text-gray-600 hover:underline text-xs my-2"
+        data-testid="toSignUpLink"
       >
         アカウント作成はこちら
       </Link>
       <Link
         to="/forgot_password"
         className="block text-gray-600 hover:underline text-xs my-2"
+        data-testid="toForgtoPasswordLink"
       >
         パスワードをお忘れの方はこちら
       </Link>
