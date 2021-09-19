@@ -5,7 +5,7 @@ import { LoginForm } from "../organisms/form/LoginForm";
 
 export const Login: VFC = () => {
   return (
-    <MainLayout>
+    <MainLayout title={"Login - Mangaholic"}>
       <LoginForm />
     </MainLayout>
   );

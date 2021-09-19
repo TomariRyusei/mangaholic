@@ -13,7 +13,7 @@ export const Home: VFC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title={"Home - Mangaholic"}>
       <p>HOMEページです</p>
       {currentUser && <button onClick={onClickLogout}>ログアウト</button>}
     </MainLayout>

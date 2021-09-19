@@ -5,7 +5,7 @@ import { RegisterForm } from "../organisms/form/RegisterForm";
 
 export const Register: VFC = () => {
   return (
-    <MainLayout>
+    <MainLayout title={"Register - Mangaholic"}>
       <RegisterForm />
     </MainLayout>
   );

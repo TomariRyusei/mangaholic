@@ -5,7 +5,7 @@ import { PasswordResetForm } from "../organisms/form/PasswordResetForm";
 
 export const ForgotPassword: VFC = () => {
   return (
-    <MainLayout>
+    <MainLayout title={"Password Reset - Mangaholic"}>
       <PasswordResetForm />
     </MainLayout>
   );
