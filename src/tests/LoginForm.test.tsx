@@ -26,16 +26,22 @@ describe("Rendering", () => {
 });
 
 describe("Input form onChange event", () => {
-  it("Should update input value correctly", () => {
+  it("Should update email input value correctly", () => {
     render(
       <MemoryRouter>
         <LoginForm />
       </MemoryRouter>
     );
-    // ステートの更新をテスト
     const emailInput = screen.getByTestId("emailInput") as HTMLInputElement;
     userEvent.type(emailInput, "test");
     expect(emailInput.value).toBe("test");
+  });
+  it("Should update password input value correctly", () => {
+    render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
     const passwordInput = screen.getByTestId(
       "passwordInput"
     ) as HTMLInputElement;

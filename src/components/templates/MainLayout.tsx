@@ -1,13 +1,18 @@
-import { memo, ReactNode, VFC } from "react";
+import { memo, ReactNode, useEffect, VFC } from "react";
 
 import { Navbar } from "../organisms/layout/Navbar";
 import { Footer } from "../organisms/layout/Footer";
 
 type Props = {
+  title: string;
   children: ReactNode;
 };
 export const MainLayout: VFC<Props> = memo((props) => {
-  const { children } = props;
+  const { title, children } = props;
+  useEffect(() => {
+    document.title = title;
+  }, []);
+
   return (
     <div className="bg-white flex flex-col min-h-screen">
       <header>
