@@ -11,7 +11,7 @@ export const MainLayout: VFC<Props> = memo((props) => {
   const { title, children } = props;
   useEffect(() => {
     document.title = title;
-  }, []);
+  }, [title]);
 
   return (
     <div className="bg-white flex flex-col min-h-screen">
