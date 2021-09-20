@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { AuthContext } from "../../../providers/Auth";
+import { useAuth } from "../../../hooks/useAuth";
 
 export const Navbar: VFC = () => {
   const { currentUser } = useContext(AuthContext);
+  const { logout } = useAuth();
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
   };
@@ -13,6 +15,10 @@ export const Navbar: VFC = () => {
   const onChangeSearch = useCallback(() => {
     console.log("search");
   }, []);
+
+  const onClickLogout = async () => {
+    await logout();
+  };
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-grayA p-4 mb-6">
@@ -69,7 +75,7 @@ export const Navbar: VFC = () => {
             Blog
           </a>
         </div>
-        <div className="px-3 lg:block hidden">
+        <div className="px-3 w-1/4 lg:block hidden">
           <PrimaryInput
             type={"search"}
             placeholder={"search"}
@@ -78,14 +84,24 @@ export const Navbar: VFC = () => {
           />
         </div>
         {currentUser ? (
-          <div>
-            <Link
-              to="#"
-              className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
-            >
-              {currentUser?.displayName}
-            </Link>
-          </div>
+          <>
+            <div>
+              <Link
+                to="#"
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+              >
+                {currentUser?.displayName}
+              </Link>
+            </div>
+            <div>
+              <button
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+                onClick={onClickLogout}
+              >
+                ログアウト
+              </button>
+            </div>
+          </>
         ) : (
           <>
             <div>
