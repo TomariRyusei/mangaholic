@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useState, useContext, VFC } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { ChangeEvent, useState, VFC } from "react";
+import { Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
@@ -8,13 +8,10 @@ import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import { useAuth } from "../../../hooks/useAuth";
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { AuthContext } from "../../../providers/Auth";
 
 export const LoginForm: VFC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const history = useHistory();
-  const { currentUser } = useContext(AuthContext);
   const { login, googleLogin } = useAuth();
   const {
     emailValidation,
@@ -24,10 +21,6 @@ export const LoginForm: VFC = () => {
     passwordValidationMsg,
     passwordIsValid,
   } = useFormValidation();
-
-  useEffect(() => {
-    currentUser && history.push("/");
-  }, [history, currentUser]);
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
     emailValidation(e.target.value);

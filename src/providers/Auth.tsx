@@ -4,9 +4,11 @@ import firebase from "../../src/firebase";
 type CurrentUser = {
   currentUser: firebase.User | null | undefined;
 };
+
 type Props = {
   children: ReactNode;
 };
+
 const AuthContext = createContext<CurrentUser>({ currentUser: undefined });
 const AuthProvider = (props: Props) => {
   const [currentUser, setCurrentUser] = useState<
@@ -14,16 +16,12 @@ const AuthProvider = (props: Props) => {
   >(undefined);
   const { children } = props;
   useEffect(() => {
-    // メモリリークを回避
-    let isMounted = true;
-    firebase.auth().onAuthStateChanged((user) => {
-      if (isMounted) {
-        setCurrentUser(user);
-      }
+    const unsubscribed = firebase.auth().onAuthStateChanged((user) => {
+      setCurrentUser(user);
     });
-    // アンマウントの際にフラグを更新
+
     return () => {
-      isMounted = false;
+      unsubscribed();
     };
   }, []);
 
