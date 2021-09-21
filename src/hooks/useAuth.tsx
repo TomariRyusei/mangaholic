@@ -12,7 +12,7 @@ export const useAuth = () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       showSuccessMessage("ログインしました");
-      history.push("/");
+      history.push("/home");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);
@@ -24,7 +24,7 @@ export const useAuth = () => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       showSuccessMessage("アカウントを作成しました");
-      history.push("/");
+      history.push("/home");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);
@@ -37,6 +37,7 @@ export const useAuth = () => {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       await firebase.auth().signInWithPopup(googleAuthProvider);
       showSuccessMessage("ログインしました");
+      history.push("/home");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);
@@ -59,7 +60,6 @@ export const useAuth = () => {
     try {
       await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
       showSuccessMessage("パスワード再設定用のメールを送信しました");
-      history.push("/login");
     } catch (err: any) {
       console.log(err);
       showErrorMessage("パスワード再設定用のメールの送信に失敗しました");

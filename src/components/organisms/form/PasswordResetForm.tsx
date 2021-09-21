@@ -1,24 +1,16 @@
-import { ChangeEvent, useEffect, useContext, useState, memo, VFC } from "react";
-import { useHistory } from "react-router-dom";
+import { ChangeEvent, useState, VFC } from "react";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useAuth } from "../../../hooks/useAuth";
 import { useFormValidation } from "../../../hooks/useFormValidation";
-import { AuthContext } from "../../../providers/Auth";
 
-export const PasswordResetForm: VFC = memo(() => {
+export const PasswordResetForm: VFC = () => {
   const [email, setEmail] = useState<string>("");
-  const { currentUser } = useContext(AuthContext);
   const { passwirdReset } = useAuth();
   const { emailValidation, emailValidationMsg, emailIsValid } =
     useFormValidation();
-  const history = useHistory();
-
-  useEffect(() => {
-    currentUser && history.push("/");
-  }, [currentUser, history]);
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
     emailValidation(e.target.value);
@@ -60,4 +52,4 @@ export const PasswordResetForm: VFC = memo(() => {
       </div>
     </div>
   );
-});
+};

@@ -1,33 +1,31 @@
-import { memo, VFC } from "react";
+import { VFC } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { Home } from "../components/pages/Home";
-import { Login } from "../components/pages/Login";
-import { Register } from "../components/pages/Register";
-import { ForgotPassword } from "../components/pages/ForgotPassword";
+import { Top } from "../components/pages/Top";
 import { Page404 } from "../components/pages/Page404";
 import { AuthProvider } from "../providers/Auth";
+import { AuthenticatedRoute } from "./AuthenticatedRoute";
+import { AuthenticatedGuard } from "./AuthenticatedGuard";
+import { UnAuthenticatedRoute } from "./UnAuthenticatedRoute";
+import { UnAuthenticatedGuard } from "./UnAuthenticatedGuard";
 
-export const Router: VFC = memo(() => {
+export const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
         <Route exact path="/">
-          <Home />
+          <Top />
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/forgot_password">
-          <ForgotPassword />
-        </Route>
+        <UnAuthenticatedGuard>
+          <UnAuthenticatedRoute />
+        </UnAuthenticatedGuard>
+        <AuthenticatedGuard>
+          <AuthenticatedRoute />
+        </AuthenticatedGuard>
       </AuthProvider>
       <Route path="*">
         <Page404 />
       </Route>
     </Switch>
   );
-});
+};

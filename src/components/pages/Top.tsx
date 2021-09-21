@@ -2,10 +2,10 @@ import { VFC } from "react";
 
 import { MainLayout } from "../templates/MainLayout";
 
-export const Home: VFC = () => {
+export const Top: VFC = () => {
   return (
-    <MainLayout title={"Home - Mangaholic"}>
-      <p>HOMEページです</p>
+    <MainLayout title={"Top - Mangaholic"}>
+      <p>Topページです</p>
     </MainLayout>
   );
 };

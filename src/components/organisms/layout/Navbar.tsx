@@ -22,7 +22,7 @@ export const Navbar: VFC = () => {
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-grayA p-4 mb-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
+      <div className="flex items-center flex-shrink-0 text-white ml-6">
         {/* <svg
           className="fill-current h-8 w-8 mr-2"
           width="54"
@@ -42,7 +42,7 @@ export const Navbar: VFC = () => {
           onClick={onClickMenuToggle}
         >
           <svg
-            className="fill-current h-3 w-3"
+            className="fill-current h-5 w-5"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -52,36 +52,18 @@ export const Navbar: VFC = () => {
         </button>
       </div>
       <div
-        className="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden"
+        className="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden mx-6"
         id="nav-content"
       >
         <div className="lg:flex-grow">
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md mr-4"
-          >
-            Docs
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md mr-4"
-          >
-            Examples
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-navy hover:text-white font-semibold text-md"
-          >
-            Blog
-          </a>
-        </div>
-        <div className="px-3 w-1/4 lg:block hidden">
-          <PrimaryInput
-            type={"search"}
-            placeholder={"search"}
-            id={"search"}
-            onChange={onChangeSearch}
-          />
+          <div className="lg:w-1/3 w-full lg:mt-0 mt-4 lg:px-3 px-0">
+            <PrimaryInput
+              type={"search"}
+              placeholder={"search"}
+              id={"search"}
+              onChange={onChangeSearch}
+            />
+          </div>
         </div>
         {currentUser ? (
           <>
@@ -107,7 +89,7 @@ export const Navbar: VFC = () => {
             <div>
               <Link
                 to="/login"
-                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold mt-4 lg:mt-0"
               >
                 ログイン
               </Link>
@@ -115,7 +97,7 @@ export const Navbar: VFC = () => {
             <div>
               <Link
                 to="/register"
-                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
+                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold mt-4 lg:mt-0"
               >
                 アカウント作成
               </Link>
