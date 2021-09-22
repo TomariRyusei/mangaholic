@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/useAuth";
 
 export const Navbar: VFC = () => {
   const { currentUser } = useContext(AuthContext);
+  // console.log(currentUser);
   const { logout } = useAuth();
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
