@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState, useMemo } from "react";
 
 import { Spinner } from "../components/atoms/spinner/Spinner";
-import firebase from "../../src/firebase";
+import firebase, { auth } from "../../src/firebase";
 
 type CurrentUser = {
   currentUser: firebase.User | null | undefined;
@@ -16,15 +16,17 @@ const AuthContext = createContext<CurrentUser>({
   currentUser: undefined,
   authLoading: true,
 });
+
 const AuthProvider = (props: Props) => {
   const [currentUser, setCurrentUser] = useState<
     firebase.User | null | undefined
   >(undefined);
-  const [authLoading, setAuthLoading] = useState(true);
+
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
 
   const { children } = props;
   useEffect(() => {
-    const unsubscribed = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribed = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setAuthLoading(false);
     });
@@ -34,12 +36,17 @@ const AuthProvider = (props: Props) => {
     };
   }, []);
 
+  const providerValue = useMemo(
+    () => ({ currentUser, authLoading }),
+    [currentUser, authLoading]
+  );
+
   return (
     <>
       {authLoading ? (
         <Spinner />
       ) : (
-        <AuthContext.Provider value={{ currentUser, authLoading }}>
+        <AuthContext.Provider value={providerValue}>
           {children}
         </AuthContext.Provider>
       )}

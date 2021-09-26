@@ -1,7 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-import firebase from "../firebase";
-import { actionCodeSettings } from "../firebase";
+import firebase, { auth, actionCodeSettings } from "../firebase";
 import { useFlashMessage } from "./useFlashMessage";
 
 export const useAuth = () => {
@@ -10,7 +9,7 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
       showSuccessMessage("ログインしました");
       history.push("/home");
     } catch (err: any) {
@@ -22,7 +21,7 @@ export const useAuth = () => {
 
   const register = async (email: string, password: string) => {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      await auth.createUserWithEmailAndPassword(email, password);
       showSuccessMessage("アカウントを作成しました");
       history.push("/home");
     } catch (err: any) {
@@ -47,7 +46,7 @@ export const useAuth = () => {
 
   const logout = async () => {
     try {
-      await firebase.auth().signOut();
+      await auth.signOut();
       showSuccessMessage("ログアウトしました");
       history.push("/login");
     } catch (err: any) {
@@ -56,9 +55,9 @@ export const useAuth = () => {
     }
   };
 
-  const passwirdReset = async (email: string) => {
+  const passwordReset = async (email: string) => {
     try {
-      await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
+      await auth.sendPasswordResetEmail(email, actionCodeSettings);
       showSuccessMessage("パスワード再設定用のメールを送信しました");
     } catch (err: any) {
       console.log(err);
@@ -102,5 +101,5 @@ export const useAuth = () => {
     return msg;
   };
 
-  return { login, register, googleLogin, logout, passwirdReset };
+  return { login, register, googleLogin, logout, passwordReset };
 };
