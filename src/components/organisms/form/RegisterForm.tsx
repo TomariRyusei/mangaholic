@@ -83,12 +83,12 @@ export const RegisterForm: VFC = () => {
       </div>
       <div className="mb-6">
         <GoogleButton onClick={onClickGoogleRegister}>
-          Googleアカウントで登録
+          Googleアカウントでログイン
         </GoogleButton>
       </div>
       <div className="mb-6">
         <FacebookButton onClick={onClickFacebookLogin}>
-          Facebookアカウントで登録
+          Facebookアカウントでログイン
         </FacebookButton>
       </div>
       <Link

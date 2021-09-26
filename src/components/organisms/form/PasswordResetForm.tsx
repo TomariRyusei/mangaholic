@@ -8,7 +8,7 @@ import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export const PasswordResetForm: VFC = () => {
   const [email, setEmail] = useState<string>("");
-  const { passwirdReset } = useAuth();
+  const { passwordReset } = useAuth();
   const { emailValidation, emailValidationMsg, emailIsValid } =
     useFormValidation();
 
@@ -18,7 +18,7 @@ export const PasswordResetForm: VFC = () => {
   };
 
   const onClickSend = async () => {
-    await passwirdReset(email);
+    await passwordReset(email);
   };
 
   return (
