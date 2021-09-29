@@ -32,7 +32,7 @@ describe("Input form onChange event", () => {
         <LoginForm />
       </MemoryRouter>
     );
-    const emailInput = screen.getByTestId("emailInput") as HTMLInputElement;
+    const emailInput = screen.getByTestId("emailInput");
     userEvent.type(emailInput, "test");
     expect(emailInput.value).toBe("test");
   });
@@ -42,9 +42,7 @@ describe("Input form onChange event", () => {
         <LoginForm />
       </MemoryRouter>
     );
-    const passwordInput = screen.getByTestId(
-      "passwordInput"
-    ) as HTMLInputElement;
+    const passwordInput = screen.getByTestId("passwordInput");
     userEvent.type(passwordInput, "test");
     expect(passwordInput.value).toBe("test");
   });
