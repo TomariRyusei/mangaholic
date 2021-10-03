@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, VFC } from "react";
+import { VFC } from "react";
 import { Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -7,42 +7,20 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import { useAuth } from "../../../hooks/useAuth";
-import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export const RegisterForm: VFC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const { register, googleLogin } = useAuth();
   const {
-    emailValidation,
-    passwordValidation,
+    email,
+    password,
+    onChangeInputMail,
+    onChangePassword,
     emailValidationMsg,
     emailIsValid,
     passwordValidationMsg,
     passwordIsValid,
-  } = useFormValidation();
-
-  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
-    emailValidation(e.target.value);
-    setEmail(e.target.value);
-  };
-
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    passwordValidation(e.target.value);
-    setPassword(e.target.value);
-  };
-
-  const onClickRegister = async () => {
-    await register(email, password);
-  };
-
-  const onClickFacebookLogin = () => {
-    alert("Facebook");
-  };
-
-  const onClickGoogleRegister = async () => {
-    await googleLogin();
-  };
+    register,
+    googleLogin,
+  } = useAuth();
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
@@ -72,7 +50,7 @@ export const RegisterForm: VFC = () => {
       <div className="mt-6 mb-2">
         <PrimaryButton
           disabled={!emailIsValid || !passwordIsValid}
-          onClick={onClickRegister}
+          onClick={async () => await register(email, password)}
         >
           アカウント作成
         </PrimaryButton>
@@ -81,12 +59,12 @@ export const RegisterForm: VFC = () => {
         <span className="text-lg font-light text-gray-600">or</span>
       </div>
       <div className="mb-6">
-        <GoogleButton onClick={onClickGoogleRegister}>
+        <GoogleButton onClick={async () => await googleLogin()}>
           Googleアカウントでログイン
         </GoogleButton>
       </div>
       <div className="mb-6">
-        <FacebookButton onClick={onClickFacebookLogin}>
+        <FacebookButton onClick={() => alert("Facebook")}>
           Facebookアカウントでログイン
         </FacebookButton>
       </div>

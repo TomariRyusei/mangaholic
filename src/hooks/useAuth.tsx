@@ -1,11 +1,33 @@
+import { ChangeEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import firebase, { auth, actionCodeSettings } from "../firebase";
 import { useFlashMessage } from "./useFlashMessage";
+import { useFormValidation } from "./useFormValidation";
 
 export const useAuth = () => {
   const history = useHistory();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+  const {
+    emailValidation,
+    passwordValidation,
+    emailValidationMsg,
+    emailIsValid,
+    passwordValidationMsg,
+    passwordIsValid,
+  } = useFormValidation();
+
+  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
+    emailValidation(e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    passwordValidation(e.target.value);
+    setPassword(e.target.value);
+  };
 
   const login = async (email: string, password: string) => {
     try {
@@ -101,5 +123,19 @@ export const useAuth = () => {
     return msg;
   };
 
-  return { login, register, googleLogin, logout, passwordReset };
+  return {
+    email,
+    password,
+    onChangeInputMail,
+    onChangePassword,
+    emailValidationMsg,
+    emailIsValid,
+    passwordValidationMsg,
+    passwordIsValid,
+    login,
+    register,
+    googleLogin,
+    logout,
+    passwordReset,
+  };
 };
