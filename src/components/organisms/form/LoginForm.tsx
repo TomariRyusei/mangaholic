@@ -74,7 +74,6 @@ export const LoginForm: VFC = () => {
       <div className="mt-6 mb-2">
         <PrimaryButton
           disabled={!emailIsValid || !passwordIsValid}
-          colorName={"navy"}
           testid={"loginButton"}
           onClick={onClickLogin}
         >
