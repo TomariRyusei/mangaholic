@@ -42,11 +42,7 @@ export const PasswordResetForm: VFC = () => {
         />
       </div>
       <div className="mt-6 mb-2">
-        <PrimaryButton
-          disabled={!emailIsValid}
-          colorName={"navy"}
-          onClick={onClickSend}
-        >
+        <PrimaryButton disabled={!emailIsValid} onClick={onClickSend}>
           送信
         </PrimaryButton>
       </div>
