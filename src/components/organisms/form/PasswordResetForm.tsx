@@ -1,25 +1,18 @@
-import { ChangeEvent, useState, VFC } from "react";
+import { VFC } from "react";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
 import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useAuth } from "../../../hooks/useAuth";
-import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export const PasswordResetForm: VFC = () => {
-  const [email, setEmail] = useState<string>("");
-  const { passwordReset } = useAuth();
-  const { emailValidation, emailValidationMsg, emailIsValid } =
-    useFormValidation();
-
-  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
-    emailValidation(e.target.value);
-    setEmail(e.target.value);
-  };
-
-  const onClickSend = async () => {
-    await passwordReset(email);
-  };
+  const {
+    email,
+    onChangeInputMail,
+    emailValidationMsg,
+    emailIsValid,
+    passwordReset,
+  } = useAuth();
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
@@ -42,7 +35,10 @@ export const PasswordResetForm: VFC = () => {
         />
       </div>
       <div className="mt-6 mb-2">
-        <PrimaryButton disabled={!emailIsValid} onClick={onClickSend}>
+        <PrimaryButton
+          disabled={!emailIsValid}
+          onClick={async () => await passwordReset(email)}
+        >
           送信
         </PrimaryButton>
       </div>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, VFC } from "react";
+import { VFC } from "react";
 import { Link } from "react-router-dom";
 
 import { PrimaryLabel } from "../../atoms/label/PrimaryLabel";
@@ -7,42 +7,20 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { FacebookButton } from "../../atoms/button/FacebookButton";
 import { GoogleButton } from "../../atoms/button/GoogleButton";
 import { useAuth } from "../../../hooks/useAuth";
-import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export const LoginForm: VFC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const { login, googleLogin } = useAuth();
   const {
-    emailValidation,
-    passwordValidation,
+    email,
+    password,
+    onChangeInputMail,
+    onChangePassword,
     emailValidationMsg,
     emailIsValid,
     passwordValidationMsg,
     passwordIsValid,
-  } = useFormValidation();
-
-  const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
-    emailValidation(e.target.value);
-    setEmail(e.target.value);
-  };
-
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    passwordValidation(e.target.value);
-    setPassword(e.target.value);
-  };
-
-  const onClickLogin = async () => {
-    await login(email, password);
-  };
-
-  const onClickFacebookLogin = () => {
-    alert("Facebook");
-  };
-
-  const onClickGoogleLogin = async () => {
-    await googleLogin();
-  };
+    login,
+    googleLogin,
+  } = useAuth();
 
   return (
     <div className="w-full min-w-min max-w-sm border rounded overflow-hidden shadow-xl px-8 pb-6 pt-4 my-6">
@@ -75,7 +53,7 @@ export const LoginForm: VFC = () => {
         <PrimaryButton
           disabled={!emailIsValid || !passwordIsValid}
           testid={"loginButton"}
-          onClick={onClickLogin}
+          onClick={async () => await login(email, password)}
         >
           ログイン
         </PrimaryButton>
@@ -84,14 +62,17 @@ export const LoginForm: VFC = () => {
         <span className="text-lg font-light text-gray-600">or</span>
       </div>
       <div className="mb-6">
-        <GoogleButton testid={"googleLoginButton"} onClick={onClickGoogleLogin}>
+        <GoogleButton
+          testid={"googleLoginButton"}
+          onClick={async () => await googleLogin()}
+        >
           Googleアカウントでログイン
         </GoogleButton>
       </div>
       <div className="mb-6">
         <FacebookButton
           testid={"facebookLoginButton"}
-          onClick={onClickFacebookLogin}
+          onClick={() => alert("Facebook")}
         >
           Facebookアカウントでログイン
         </FacebookButton>
