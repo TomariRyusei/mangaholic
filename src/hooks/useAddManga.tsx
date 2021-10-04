@@ -3,6 +3,7 @@ import { useState, useContext, useCallback, ChangeEvent } from "react";
 import { db } from "./../firebase";
 import { AuthContext } from "../providers/Auth";
 import { useFlashMessage } from "./useFlashMessage";
+import { useFormValidation } from "./useFormValidation";
 
 export const useAddManga = () => {
   const [mangaTitle, setMangaTitle] = useState<string>("");
@@ -10,18 +11,32 @@ export const useAddManga = () => {
   const [mangaAuthor, setMangaAuthor] = useState<string>("");
   const { currentUser } = useContext(AuthContext);
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
+  const {
+    mangaTitleValidation,
+    mangaPublisherValidation,
+    mangaAuthorValidation,
+    mangaTitleValidationMsg,
+    mangaTitleIsValid,
+    mangaPublisherValidationMsg,
+    mangaPublisherIsValid,
+    mangaAuthorValidationMsg,
+    mangaAuthorIsValid,
+  } = useFormValidation();
 
   const userId: string | null = currentUser ? currentUser.uid : null;
 
   const onChangeInputMangaTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    mangaTitleValidation(e.target.value);
     setMangaTitle(e.target.value);
   };
 
   const onChangeInputMangaPublisher = (e: ChangeEvent<HTMLInputElement>) => {
+    mangaPublisherValidation(e.target.value);
     setMangaPublisher(e.target.value);
   };
 
   const onChangeInputMangaAuthor = (e: ChangeEvent<HTMLInputElement>) => {
+    mangaAuthorValidation(e.target.value);
     setMangaAuthor(e.target.value);
   };
 
@@ -64,6 +79,12 @@ export const useAddManga = () => {
     mangaTitle,
     mangaPublisher,
     mangaAuthor,
+    mangaTitleValidationMsg,
+    mangaTitleIsValid,
+    mangaPublisherValidationMsg,
+    mangaPublisherIsValid,
+    mangaAuthorValidationMsg,
+    mangaAuthorIsValid,
     onChangeInputMangaTitle,
     onChangeInputMangaPublisher,
     onChangeInputMangaAuthor,
