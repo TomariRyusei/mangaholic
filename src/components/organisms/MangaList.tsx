@@ -4,6 +4,7 @@ import { useMangaList } from "../../hooks/useMangaList";
 import { PrimaryLabel } from "../atoms/label/PrimaryLabel";
 import { Spinner } from "../atoms/spinner/Spinner";
 import { AddButton } from "../atoms/button/AddButton";
+import { MangaItem } from "../organisms/MangaItem";
 import { AddMangaForm } from "../organisms/modal/AddMangaForm";
 
 export const MangaList: VFC = () => {
@@ -27,11 +28,18 @@ export const MangaList: VFC = () => {
           <PrimaryLabel testid={"mangaListLabel"}>
             {currentUser?.displayName}さんの Manga List
           </PrimaryLabel>
-          <AddButton onClick={() => setShowModal(true)} />
+          <AddButton
+            onClick={() => setShowModal(true)}
+            testid="addMangaButton"
+          />
           {mangaList.map((manga) => (
-            <h3 className="text-gray-600 text-lg" key={manga.id}>
-              {manga.title} {manga.author} {manga.publisher}
-            </h3>
+            <MangaItem
+              key={manga.id}
+              id={manga.id}
+              title={manga.title}
+              publisher={manga.publisher}
+              author={manga.author}
+            />
           ))}
           <AddMangaForm showModal={showModal} setShowModal={setShowModal} />
         </div>
