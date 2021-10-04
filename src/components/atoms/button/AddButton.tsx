@@ -3,16 +3,15 @@ import { memo, VFC } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 
 type Props = {
-  //   testid?: string;
+  testid?: string;
   onClick: () => void;
 };
 
 export const AddButton: VFC<Props> = memo((props) => {
-  //   const { testid, onClick } = props;
-  const { onClick } = props;
+  const { testid, onClick } = props;
   return (
     <div className="my-5">
-      <PrimaryButton onClick={onClick}>
+      <PrimaryButton onClick={onClick} testid={testid}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 inline"
