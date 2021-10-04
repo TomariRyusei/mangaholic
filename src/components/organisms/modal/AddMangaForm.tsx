@@ -16,6 +16,12 @@ export const AddMangaForm: VFC<Props> = (props) => {
     mangaTitle,
     mangaPublisher,
     mangaAuthor,
+    mangaTitleValidationMsg,
+    mangaTitleIsValid,
+    mangaPublisherValidationMsg,
+    mangaPublisherIsValid,
+    mangaAuthorValidationMsg,
+    mangaAuthorIsValid,
     onChangeInputMangaTitle,
     onChangeInputMangaPublisher,
     onChangeInputMangaAuthor,
@@ -42,7 +48,7 @@ export const AddMangaForm: VFC<Props> = (props) => {
               <PrimaryLabel testid={"loginLabel"}>漫画を追加</PrimaryLabel>
             </div>
             <div className="mb-6">
-              {/* <p className="text-xs text-red-600">{emailValidationMsg}</p> */}
+              <p className="text-xs text-red-600">{mangaTitleValidationMsg}</p>
               <PrimaryInput
                 type={"text"}
                 placeholder={"漫画タイトル"}
@@ -53,7 +59,9 @@ export const AddMangaForm: VFC<Props> = (props) => {
               />
             </div>
             <div className="mb-6">
-              {/* <p className="text-xs text-red-600">{passwordValidationMsg}</p> */}
+              <p className="text-xs text-red-600">
+                {mangaPublisherValidationMsg}
+              </p>
               <PrimaryInput
                 type={"text"}
                 placeholder={"出版社"}
@@ -64,7 +72,7 @@ export const AddMangaForm: VFC<Props> = (props) => {
               />
             </div>
             <div className="mb-6">
-              {/* <p className="text-xs text-red-600">{passwordValidationMsg}</p> */}
+              <p className="text-xs text-red-600">{mangaAuthorValidationMsg}</p>
               <PrimaryInput
                 type={"text"}
                 placeholder={"作者"}
@@ -76,7 +84,11 @@ export const AddMangaForm: VFC<Props> = (props) => {
             </div>
             <div className="mt-6 mb-2">
               <PrimaryButton
-                //   disabled={!emailIsValid || !passwordIsValid}
+                disabled={
+                  !mangaTitleIsValid ||
+                  !mangaPublisherIsValid ||
+                  !mangaAuthorIsValid
+                }
                 testid={"addMangaButton"}
                 onClick={postMangaAndCloseModal}
               >
