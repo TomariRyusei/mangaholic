@@ -55,6 +55,7 @@ export const useMangaList = () => {
         return;
       }
 
+
       if (!window.confirm("漫画を削除します。よろしいですか？")) {
         return;
       }
