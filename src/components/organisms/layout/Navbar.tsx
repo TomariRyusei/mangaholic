@@ -1,7 +1,6 @@
-import { VFC, useCallback, useContext } from "react";
+import { VFC, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { PrimaryInput } from "../../atoms/input/PrimaryInput";
 import { AuthContext } from "../../../providers/Auth";
 import { useAuth } from "../../../hooks/useAuth";
 
@@ -11,10 +10,6 @@ export const Navbar: VFC = () => {
   const onClickMenuToggle = () => {
     document.getElementById("nav-content")?.classList.toggle("hidden");
   };
-
-  const onChangeSearch = useCallback(() => {
-    console.log("search");
-  }, []);
 
   const onClickLogout = async () => {
     await logout();
@@ -47,33 +42,10 @@ export const Navbar: VFC = () => {
         id="nav-content"
       >
         <div className="lg:flex-grow">
-          <div className="lg:w-1/3 w-full lg:mt-0 mt-4 lg:px-3 px-0">
-            <PrimaryInput
-              type={"search"}
-              placeholder={"search"}
-              id={"search"}
-              onChange={onChangeSearch}
-            />
-          </div>
+          <div className="lg:w-1/3 w-full lg:mt-0 mt-4 lg:px-3 px-0"></div>
         </div>
         {currentUser ? (
           <>
-            {/* <div>
-              <Link
-                to="#"
-                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
-              >
-                {currentUser?.displayName}
-              </Link>
-            </div> */}
-            {/* <div>
-              <button
-                className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"
-                onClick={() => alert("add")}
-              >
-                漫画を追加
-              </button>
-            </div> */}
             <div>
               <button
                 className="inline-block text-sm lg:px-3 px-0 text-navy hover:text-white font-semibold text-md mt-4 lg:mt-0"

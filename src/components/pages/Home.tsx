@@ -6,7 +6,7 @@ import { MangaList } from "../organisms/MangaList";
 export const Home: VFC = () => {
   return (
     <MainLayout title={"Home - Mangaholic"}>
-      <div>
+      <div className="w-10/12">
         <MangaList />
       </div>
     </MainLayout>
