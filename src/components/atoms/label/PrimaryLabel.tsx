@@ -7,7 +7,10 @@ type Props = {
 export const PrimaryLabel: VFC<Props> = memo((props) => {
   const { testid, children } = props;
   return (
-    <label className="block text-gray-600 text-xl my-4" data-testid={testid}>
+    <label
+      className="block text-gray-600 text-xl font-medium my-4"
+      data-testid={testid}
+    >
       {children}
     </label>
   );
