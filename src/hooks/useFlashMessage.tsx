@@ -4,7 +4,7 @@ export const useFlashMessage = () => {
   const showSuccessMessage = (message: string) => {
     toast.success(message, {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -16,7 +16,7 @@ export const useFlashMessage = () => {
   const showErrorMessage = (message: string) => {
     toast.error(message, {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,

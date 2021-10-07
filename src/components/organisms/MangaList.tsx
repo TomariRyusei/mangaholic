@@ -4,14 +4,23 @@ import { useMangaList } from "../../hooks/useMangaList";
 import { PrimaryLabel } from "../atoms/label/PrimaryLabel";
 import { Spinner } from "../atoms/spinner/Spinner";
 import { AddButton } from "../atoms/button/AddButton";
-// import { MangaItem } from "../organisms/MangaItem";
 import { AddMangaForm } from "../organisms/modal/AddMangaForm";
 import { DeleteButton } from "../atoms/button/DeleteButton";
+import { EditButton } from "../atoms/button/EditButton";
 
 export const MangaList: VFC = () => {
   const [showModal, setShowModal] = useState(false);
-  const { mangaList, loading, fetchMangaList, deleteManga, currentUser } =
-    useMangaList();
+  const {
+    mangaList,
+    loading,
+    fetchMangaList,
+    deleteManga,
+    onChangeMangaTitle,
+    onChangeMangaPublisher,
+    onChangeMangaAuthor,
+    editManga,
+    currentUser,
+  } = useMangaList();
 
   useEffect(() => {
     const unsubscribed = fetchMangaList();
@@ -102,19 +111,45 @@ export const MangaList: VFC = () => {
                     return (
                       <tr key={manga.id}>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5 text-gray-700">
-                          {manga.title}
+                          <input
+                            type="text"
+                            defaultValue={manga.title}
+                            className="focus:outline-none focus:ring focus:border-blue-300"
+                            placeholder="漫画タイトル"
+                            onChange={onChangeMangaTitle}
+                          />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          {manga.author}
+                          <input
+                            type="text"
+                            defaultValue={manga.author}
+                            className="focus:outline-none focus:ring focus:border-blue-300"
+                            placeholder="作者"
+                            onChange={onChangeMangaAuthor}
+                          />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          {manga.publisher}
+                          <input
+                            type="text"
+                            defaultValue={manga.publisher}
+                            className="focus:outline-none focus:ring focus:border-blue-300"
+                            placeholder="出版社"
+                            onChange={onChangeMangaPublisher}
+                          />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          24
+                          <input
+                            type="text"
+                            defaultValue="24"
+                            className="focus:outline-none focus:ring focus:border-blue-300"
+                            placeholder="巻数"
+                          />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-gray-700 text-sm leading-5">
-                          編集ボタン
+                          <EditButton
+                            testid="editMangaButton"
+                            onClick={async () => await editManga(manga.id)}
+                          />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
                           <DeleteButton
