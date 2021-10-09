@@ -28,7 +28,9 @@ export const LoginForm: VFC = () => {
         <PrimaryLabel testid={"loginLabel"}>ログイン</PrimaryLabel>
       </div>
       <div className="mb-6">
-        <p className="text-xs text-red-600">{emailValidationMsg}</p>
+        <p className="text-xs text-red-600">
+          {emailValidationMsg ? emailValidationMsg : "必須"}
+        </p>
         <PrimaryInput
           type={"email"}
           placeholder={"メールアドレス"}
@@ -39,7 +41,9 @@ export const LoginForm: VFC = () => {
         />
       </div>
       <div className="mb-6">
-        <p className="text-xs text-red-600">{passwordValidationMsg}</p>
+        <p className="text-xs text-red-600">
+          {passwordValidationMsg ? passwordValidationMsg : "必須"}
+        </p>
         <PrimaryInput
           type={"password"}
           placeholder={"パスワード"}

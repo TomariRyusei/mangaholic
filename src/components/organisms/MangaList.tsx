@@ -37,7 +37,8 @@ export const MangaList: VFC = () => {
       ) : (
         <div className="min-w-full">
           <PrimaryLabel>
-            {currentUser?.displayName}さんの漫画リスト
+            {currentUser?.displayName ? currentUser.displayName : "No Name"}
+            さんの漫画リスト
           </PrimaryLabel>
           <AddButton
             onClick={() => setShowModal(true)}

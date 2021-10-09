@@ -12,12 +12,6 @@ export const useMangaList = () => {
     author: string;
   };
 
-  type editedManga = {
-    title: string;
-    publisher: string;
-    author: string;
-  };
-
   // 編集時にオブジェクトを生成する際使用する配列の型(必ず要素は2つになる)
   type editArray<T> = [T, T];
 
@@ -78,11 +72,11 @@ export const useMangaList = () => {
   const editManga = useCallback(
     async (mangaId: string) => {
       if (!userId) {
-        alert("ユーザーID取得できないため、削除できません。");
+        alert("ユーザーID取得できないため、編集できません。");
         return;
       }
 
-      const mangaData: editedManga = {
+      const mangaData = {
         title: editedMangaTitle,
         publisher: editedMangaPublisher,
         author: editedMangaAuthor,
@@ -131,7 +125,6 @@ export const useMangaList = () => {
         alert("ユーザーID取得できないため、削除できません。");
         return;
       }
-
 
       if (!window.confirm("漫画を削除します。よろしいですか？")) {
         return;

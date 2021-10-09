@@ -10,8 +10,10 @@ import { useAuth } from "../../../hooks/useAuth";
 
 export const RegisterForm: VFC = () => {
   const {
+    username,
     email,
     password,
+    onChangeInputUsername,
     onChangeInputMail,
     onChangePassword,
     emailValidationMsg,
@@ -28,7 +30,18 @@ export const RegisterForm: VFC = () => {
         <PrimaryLabel>アカウント作成</PrimaryLabel>
       </div>
       <div className="mb-6">
-        <p className="text-xs text-red-600">{emailValidationMsg}</p>
+        <PrimaryInput
+          type={"text"}
+          placeholder={"ユーザー名"}
+          id={"username"}
+          value={username}
+          onChange={onChangeInputUsername}
+        />
+      </div>
+      <div className="mb-6">
+        <p className="text-xs text-red-600">
+          {emailValidationMsg ? emailValidationMsg : "必須"}
+        </p>
         <PrimaryInput
           type={"email"}
           placeholder={"メールアドレス"}
@@ -38,7 +51,9 @@ export const RegisterForm: VFC = () => {
         />
       </div>
       <div className="mb-6">
-        <p className="text-xs text-red-600">{passwordValidationMsg}</p>
+        <p className="text-xs text-red-600">
+          {passwordValidationMsg ? passwordValidationMsg : "必須"}
+        </p>
         <PrimaryInput
           type={"password"}
           placeholder={"パスワード"}
