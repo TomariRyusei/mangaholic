@@ -7,6 +7,7 @@ import { useFormValidation } from "./useFormValidation";
 
 export const useAuth = () => {
   const history = useHistory();
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
@@ -18,6 +19,10 @@ export const useAuth = () => {
     passwordValidationMsg,
     passwordIsValid,
   } = useFormValidation();
+
+  const onChangeInputUsername = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
 
   const onChangeInputMail = (e: ChangeEvent<HTMLInputElement>) => {
     emailValidation(e.target.value);
@@ -44,6 +49,11 @@ export const useAuth = () => {
   const register = async (email: string, password: string) => {
     try {
       await auth.createUserWithEmailAndPassword(email, password);
+      const user = auth.currentUser;
+      // ユーザー名を追加
+      await user?.updateProfile({
+        displayName: username,
+      });
       showSuccessMessage("アカウントを作成しました");
       history.push("/home");
     } catch (err: any) {
@@ -124,8 +134,10 @@ export const useAuth = () => {
   };
 
   return {
+    username,
     email,
     password,
+    onChangeInputUsername,
     onChangeInputMail,
     onChangePassword,
     emailValidationMsg,
