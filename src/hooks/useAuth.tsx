@@ -38,7 +38,7 @@ export const useAuth = () => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       showSuccessMessage("ログインしました");
-      history.push("/home");
+      history.push("/");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);
@@ -55,7 +55,7 @@ export const useAuth = () => {
         displayName: username,
       });
       showSuccessMessage("アカウントを作成しました");
-      history.push("/home");
+      history.push("/");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);
@@ -68,7 +68,7 @@ export const useAuth = () => {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       await firebase.auth().signInWithPopup(googleAuthProvider);
       showSuccessMessage("ログインしました");
-      history.push("/home");
+      history.push("/");
     } catch (err: any) {
       const msg = authErrorHandling(err.code);
       showErrorMessage(msg);

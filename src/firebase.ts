@@ -14,6 +14,9 @@ const firebaseConfig = {
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebase
+  .firestore()
+  .settings({ experimentalForceLongPolling: true, merge: true });
 
 // firebaseパスワードリセット後のリダイレクトの設定
 export const actionCodeSettings = {
