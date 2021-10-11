@@ -14,7 +14,7 @@ export const UnAuthPrivateRoute: VFC<RouteProps> = (props) => {
         currentUser ? (
           <Redirect
             to={{
-              pathname: "/home",
+              pathname: "/",
               state: { from: innerProps.location },
             }}
           />

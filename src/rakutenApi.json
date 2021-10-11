@@ -1,0 +1,46 @@
+{
+  "Items": [
+    {
+      "Item": {
+        "limitedFlag": 0,
+        "authorKana": "オシミ シュウゾウ",
+        "author": "押見 修造",
+        "subTitle": "",
+        "seriesNameKana": "コウダンシャコミックスKC",
+        "title": "おかえりアリス（1）",
+        "subTitleKana": "",
+        "itemCaption": "",
+        "publisherName": "講談社",
+        "listPrice": 0,
+        "isbn": "9784065205938",
+        "largeImageUrl": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5938/9784065205938.jpg?_ex=200x200",
+        "mediumImageUrl": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5938/9784065205938.jpg?_ex=120x120",
+        "titleKana": "オカエリアリス1",
+        "availability": "1",
+        "postageFlag": 2,
+        "salesDate": "2020年10月09日",
+        "contents": "",
+        "smallImageUrl": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5938/9784065205938.jpg?_ex=64x64",
+        "discountPrice": 0,
+        "itemPrice": 495,
+        "size": "コミック",
+        "booksGenreId": "001001001006",
+        "affiliateUrl": "",
+        "seriesName": "講談社コミックス",
+        "reviewCount": 4,
+        "reviewAverage": "3.67",
+        "discountRate": 0,
+        "chirayomiUrl": "",
+        "itemUrl": "https://books.rakuten.co.jp/rb/16450748/"
+      }
+    }
+  ],
+  "pageCount": 1,
+  "hits": 3,
+  "last": 3,
+  "count": 3,
+  "page": 1,
+  "carrier": 0,
+  "GenreInformation": [],
+  "first": 1
+}

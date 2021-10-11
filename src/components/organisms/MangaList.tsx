@@ -97,9 +97,6 @@ export const MangaList: VFC = () => {
                       出版社
                     </th>
                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-navy tracking-wider">
-                      巻数
-                    </th>
-                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-navy tracking-wider">
                       編集
                     </th>
                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-navy tracking-wider">
@@ -136,14 +133,6 @@ export const MangaList: VFC = () => {
                             className="focus:outline-none focus:ring focus:border-blue-300"
                             placeholder="出版社"
                             onChange={onChangeMangaPublisher}
-                          />
-                        </td>
-                        <td className="px-6 py-4 whitespace-no-wrap border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          <input
-                            type="text"
-                            defaultValue="24"
-                            className="focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="巻数"
                           />
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-gray-700 text-sm leading-5">
