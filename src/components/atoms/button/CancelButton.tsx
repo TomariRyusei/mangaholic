@@ -5,13 +5,13 @@ type Props = {
   onClick: () => void;
 };
 
-export const EditButton: VFC<Props> = memo((props) => {
+export const CancelButton: VFC<Props> = memo((props) => {
   const { testid, onClick } = props;
   return (
     <button onClick={onClick} data-testid={testid}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-navy"
+        className="h-6 w-6 text-yellow-500"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -20,7 +20,7 @@ export const EditButton: VFC<Props> = memo((props) => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+          d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
         />
       </svg>
     </button>

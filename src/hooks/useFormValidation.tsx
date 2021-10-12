@@ -10,13 +10,6 @@ export const useFormValidation = () => {
   const [mangaTitleValidationMsg, setMangaTitleValidationMsg] =
     useState<string>("");
   const [mangaTitleIsValid, setMangaTitleIsValid] = useState<boolean>(false);
-  const [mangaPublisherValidationMsg, setMangaPublisherValidationMsg] =
-    useState<string>("");
-  const [mangaPublisherIsValid, setMangaPublisherIsValid] =
-    useState<boolean>(false);
-  const [mangaAuthorValidationMsg, setMangaAuthorValidationMsg] =
-    useState<string>("");
-  const [mangaAuthorIsValid, setMangaAuthorIsValid] = useState<boolean>(false);
 
   const emailValidation = (value: string) => {
     if (!value) {
@@ -67,25 +60,6 @@ export const useFormValidation = () => {
     return true;
   };
 
-  const mangaPublisherValidation = (value: string) => {
-    if (!value) {
-      setMangaPublisherValidationMsg("※漫画の出版社を入力してください");
-      setMangaPublisherIsValid(false);
-      return false;
-    }
-    setMangaPublisherValidationMsg("");
-    setMangaPublisherIsValid(true);
-  };
-  const mangaAuthorValidation = (value: string) => {
-    if (!value) {
-      setMangaAuthorValidationMsg("※漫画の作者を入力してください");
-      setMangaAuthorIsValid(false);
-      return false;
-    }
-    setMangaAuthorValidationMsg("");
-    setMangaAuthorIsValid(true);
-  };
-
   return {
     emailValidation,
     passwordValidation,
@@ -94,13 +68,7 @@ export const useFormValidation = () => {
     passwordValidationMsg,
     passwordIsValid,
     mangaTitleValidation,
-    mangaPublisherValidation,
-    mangaAuthorValidation,
     mangaTitleValidationMsg,
     mangaTitleIsValid,
-    mangaPublisherValidationMsg,
-    mangaPublisherIsValid,
-    mangaAuthorValidationMsg,
-    mangaAuthorIsValid,
   };
 };

@@ -14,17 +14,8 @@ export const useAddManga = () => {
   const [mangaAuthor, setMangaAuthor] = useState<string>("");
   const { currentUser } = useContext(AuthContext);
   const { showSuccessMessage, showErrorMessage } = useFlashMessage();
-  const {
-    mangaTitleValidation,
-    mangaPublisherValidation,
-    mangaAuthorValidation,
-    mangaTitleValidationMsg,
-    mangaTitleIsValid,
-    mangaPublisherValidationMsg,
-    mangaPublisherIsValid,
-    mangaAuthorValidationMsg,
-    mangaAuthorIsValid,
-  } = useFormValidation();
+  const { mangaTitleValidation, mangaTitleValidationMsg, mangaTitleIsValid } =
+    useFormValidation();
 
   type MangaInfo = {
     title: string;
@@ -41,12 +32,10 @@ export const useAddManga = () => {
   };
 
   const onChangeInputMangaPublisher = (e: ChangeEvent<HTMLInputElement>) => {
-    mangaPublisherValidation(e.target.value);
     setMangaPublisher(e.target.value);
   };
 
   const onChangeInputMangaAuthor = (e: ChangeEvent<HTMLInputElement>) => {
-    mangaAuthorValidation(e.target.value);
     setMangaAuthor(e.target.value);
   };
 
@@ -143,10 +132,6 @@ export const useAddManga = () => {
     mangaAuthor,
     mangaTitleValidationMsg,
     mangaTitleIsValid,
-    mangaPublisherValidationMsg,
-    mangaPublisherIsValid,
-    mangaAuthorValidationMsg,
-    mangaAuthorIsValid,
     onChangeInputMangaTitle,
     onChangeInputMangaPublisher,
     onChangeInputMangaAuthor,
