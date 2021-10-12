@@ -18,10 +18,6 @@ export const AddMangaForm: VFC<Props> = (props) => {
     mangaAuthor,
     mangaTitleValidationMsg,
     mangaTitleIsValid,
-    mangaPublisherValidationMsg,
-    mangaPublisherIsValid,
-    mangaAuthorValidationMsg,
-    mangaAuthorIsValid,
     onChangeInputMangaTitle,
     onChangeInputMangaPublisher,
     onChangeInputMangaAuthor,
@@ -30,7 +26,7 @@ export const AddMangaForm: VFC<Props> = (props) => {
 
   const postMangaAndCloseModal = async () => {
     await postManga();
-    setShowModal(false);
+    setShowModal(!showModal);
   };
 
   return (
@@ -59,9 +55,6 @@ export const AddMangaForm: VFC<Props> = (props) => {
               />
             </div>
             <div className="mb-6">
-              <p className="text-xs text-red-600">
-                {mangaPublisherValidationMsg}
-              </p>
               <PrimaryInput
                 type={"text"}
                 placeholder={"出版社"}
@@ -72,7 +65,6 @@ export const AddMangaForm: VFC<Props> = (props) => {
               />
             </div>
             <div className="mb-6">
-              <p className="text-xs text-red-600">{mangaAuthorValidationMsg}</p>
               <PrimaryInput
                 type={"text"}
                 placeholder={"作者"}
@@ -84,11 +76,7 @@ export const AddMangaForm: VFC<Props> = (props) => {
             </div>
             <div className="mt-6 mb-2">
               <PrimaryButton
-                disabled={
-                  !mangaTitleIsValid ||
-                  !mangaPublisherIsValid ||
-                  !mangaAuthorIsValid
-                }
+                disabled={!mangaTitleIsValid}
                 testid={"addMangaButton"}
                 onClick={postMangaAndCloseModal}
               >
@@ -97,7 +85,7 @@ export const AddMangaForm: VFC<Props> = (props) => {
             </div>
             <button
               className="block text-gray-600 hover:underline text-xs mt-4"
-              onClick={() => setShowModal(false)}
+              onClick={() => setShowModal(!showModal)}
             >
               閉じる
             </button>
