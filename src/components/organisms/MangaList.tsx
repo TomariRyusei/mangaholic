@@ -1,29 +1,17 @@
 import { VFC, useState, useEffect } from "react";
 
 import { useMangaList } from "../../hooks/useMangaList";
-import { useEditManga } from "../../hooks/useEditManga";
+import { MangaListItem } from "./MangaListItem";
 import { PrimaryLabel } from "../atoms/label/PrimaryLabel";
 import { Spinner } from "../atoms/spinner/Spinner";
 import { AddButton } from "../atoms/button/AddButton";
 import { AddMangaForm } from "../organisms/modal/AddMangaForm";
-import { DeleteButton } from "../atoms/button/DeleteButton";
-import { EditButton } from "../atoms/button/EditButton";
-import { SaveButton } from "../atoms/button/SaveButton";
-import { CancelButton } from "../atoms/button/CancelButton";
 
 export const MangaList: VFC = () => {
   const [showModal, setShowModal] = useState(false);
-  const { mangaList, loading, fetchMangaList, deleteManga, currentUser } =
-    useMangaList();
-
-  const {
-    onChangeMangaTitle,
-    onChangeMangaPublisher,
-    onChangeMangaAuthor,
-    isEditMode,
-    toggleEditMode,
-    editManga,
-  } = useEditManga();
+  // 編集モードのMangaListItemをカウント
+  const [editModeCount, setEditModeCount] = useState<number>(0);
+  const { mangaList, loading, fetchMangaList, currentUser } = useMangaList();
 
   useEffect(() => {
     const unsubscribed = fetchMangaList();
@@ -100,91 +88,27 @@ export const MangaList: VFC = () => {
                       出版社
                     </th>
                     <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
-                      {!isEditMode ? "編集" : "保存"}
+                      {editModeCount > 0 ? "保存" : "編集"}
                     </th>
-                    {!isEditMode ? null : (
+                    {editModeCount > 0 ? (
                       <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
                         キャンセル
                       </th>
-                    )}
+                    ) : null}
                     <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
                       削除
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
-                  {mangaList.map((manga) => {
-                    return (
-                      <tr key={manga.id}>
-                        <td className="px-2 py-4 whitespace-no-wrap text-center border-b border-gray-500 text-sm leading-5 text-gray-700">
-                          {!isEditMode ? (
-                            manga.title
-                          ) : (
-                            <input
-                              type="text"
-                              defaultValue={manga.title}
-                              className="border-b border-gray-400 py-1 text-center rounded-sm focus:outline-none"
-                              placeholder="漫画タイトル"
-                              onChange={onChangeMangaTitle}
-                            />
-                          )}
-                        </td>
-                        <td className="px-2 py-4 whitespace-no-wrap text-center border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          {!isEditMode ? (
-                            manga.author
-                          ) : (
-                            <input
-                              type="text"
-                              defaultValue={manga.author}
-                              className="border-b border-gray-400 py-1 text-center rounded-sm focus:outline-none"
-                              placeholder="作者"
-                              onChange={onChangeMangaAuthor}
-                            />
-                          )}
-                        </td>
-                        <td className="px-2 py-4 whitespace-no-wrap text-center border-b text-gray-700 border-gray-500 text-sm leading-5">
-                          {!isEditMode ? (
-                            manga.publisher
-                          ) : (
-                            <input
-                              type="text"
-                              defaultValue={manga.publisher}
-                              className="border-b border-gray-400 py-1 text-center rounded-sm focus:outline-none"
-                              placeholder="出版社"
-                              onChange={onChangeMangaPublisher}
-                            />
-                          )}
-                        </td>
-                        <td className="px-2 py-4 whitespace-no-wrap text-center border-b border-gray-500 text-gray-700 text-sm leading-5">
-                          {!isEditMode ? (
-                            <EditButton
-                              testid="editMangaButton"
-                              onClick={toggleEditMode}
-                            />
-                          ) : (
-                            <SaveButton
-                              testid="saveEditMangaButton"
-                              onClick={async () => await editManga(manga.id)}
-                            />
-                          )}
-                        </td>
-                        {!isEditMode ? null : (
-                          <td className="px-2 py-4 whitespace-no-wrap text-center  border-b border-gray-500 text-sm leading-5">
-                            <CancelButton
-                              testid="cancelMangaButton"
-                              onClick={toggleEditMode}
-                            />
-                          </td>
-                        )}
-                        <td className="px-2 py-4 whitespace-no-wrap text-center  border-b border-gray-500 text-sm leading-5">
-                          <DeleteButton
-                            testid="deleteMangaButton"
-                            onClick={async () => await deleteManga(manga.id)}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {mangaList.map((manga) => (
+                    <MangaListItem
+                      key={manga.id}
+                      manga={manga}
+                      editModeCount={editModeCount}
+                      setEditModeCount={setEditModeCount}
+                    />
+                  ))}
                 </tbody>
               </table>
             </div>
