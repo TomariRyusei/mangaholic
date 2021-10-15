@@ -30,10 +30,6 @@ export const useEditManga = () => {
     setEditedMangaAuthor(e.target.value);
   };
 
-  const toggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
-
   // 漫画情報編集
   const editManga = useCallback(
     async (mangaId: string) => {
@@ -69,7 +65,7 @@ export const useEditManga = () => {
         setEditedMangaTitle("");
         setEditedMangaPublisher("");
         setEditedMangaAuthor("");
-        setIsEditMode(!isEditMode);
+        setIsEditMode(false);
       } catch (err) {
         showErrorMessage("漫画情報の編集に失敗しました。");
         console.log(err);
@@ -82,7 +78,6 @@ export const useEditManga = () => {
       editedMangaAuthor,
       editedMangaPublisher,
       editedMangaTitle,
-      isEditMode,
     ]
   );
 
@@ -91,7 +86,7 @@ export const useEditManga = () => {
     onChangeMangaPublisher,
     onChangeMangaAuthor,
     isEditMode,
-    toggleEditMode,
+    setIsEditMode,
     editManga,
   };
 };
