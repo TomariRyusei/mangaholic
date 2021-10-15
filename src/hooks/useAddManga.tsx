@@ -23,12 +23,6 @@ export const useAddManga = () => {
     author: string;
   };
 
-  type MangaInfo = {
-    title: string;
-    publisher: string;
-    author: string;
-  };
-
   const userId: string | null = currentUser ? currentUser.uid : null;
 
   const onChangeInputMangaTitle = async (e: ChangeEvent<HTMLInputElement>) => {
