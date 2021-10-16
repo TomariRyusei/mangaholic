@@ -77,39 +77,37 @@ export const MangaListItem: VFC<Props> = (props) => {
       </td>
       <td className="px-2 py-4 whitespace-no-wrap text-center border-b border-gray-500 text-gray-700 text-sm leading-5">
         {isEditMode ? (
-          <SaveButton
-            testid="saveEditMangaButton"
-            onClick={async () => {
-              await editManga(manga.id);
-              setEditModeCount(editModeCount - 1);
-            }}
-          />
+          <>
+            <SaveButton
+              testid="saveEditMangaButton"
+              onClick={async () => {
+                await editManga(manga.id);
+                setEditModeCount(editModeCount - 1);
+              }}
+            />
+            <CancelButton
+              testid="cancelMangaButton"
+              onClick={() => {
+                setIsEditMode(false);
+                setEditModeCount(editModeCount - 1);
+              }}
+            />
+          </>
         ) : (
-          <EditButton
-            testid="editMangaButton"
-            onClick={() => {
-              setIsEditMode(true);
-              setEditModeCount(editModeCount + 1);
-            }}
-          />
+          <>
+            <EditButton
+              testid="editMangaButton"
+              onClick={() => {
+                setIsEditMode(true);
+                setEditModeCount(editModeCount + 1);
+              }}
+            />
+            <DeleteButton
+              testid="deleteMangaButton"
+              onClick={async () => await deleteManga(manga.id)}
+            />
+          </>
         )}
-      </td>
-      {isEditMode ? (
-        <td className="px-2 py-4 whitespace-no-wrap text-center  border-b border-gray-500 text-sm leading-5">
-          <CancelButton
-            testid="cancelMangaButton"
-            onClick={() => {
-              setIsEditMode(false);
-              setEditModeCount(editModeCount - 1);
-            }}
-          />
-        </td>
-      ) : null}
-      <td className="px-2 py-4 whitespace-no-wrap text-center  border-b border-gray-500 text-sm leading-5">
-        <DeleteButton
-          testid="deleteMangaButton"
-          onClick={async () => await deleteManga(manga.id)}
-        />
       </td>
     </tr>
   );

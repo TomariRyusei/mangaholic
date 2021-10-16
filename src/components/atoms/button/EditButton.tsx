@@ -8,21 +8,12 @@ type Props = {
 export const EditButton: VFC<Props> = memo((props) => {
   const { testid, onClick } = props;
   return (
-    <button onClick={onClick} data-testid={testid}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-navy"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-        />
-      </svg>
+    <button
+      onClick={onClick}
+      data-testid={testid}
+      className="bg-gray-500 hover:bg-opacity-80 text-white text-sm py-2 px-4 mr-2 shadow-lg transform hover:scale-105 transition-transform rounded max-h-10"
+    >
+      編集
     </button>
   );
 });

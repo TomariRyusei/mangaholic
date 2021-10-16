@@ -13,7 +13,7 @@ export const GoogleButton: VFC<Props> = memo((props) => {
     <>
       {disabled ? (
         <button
-          className="bg-googleRed text-white text-sm w-full py-2 px-4 mr-4 rounded opacity-50 cursor-not-allowed max-h-10"
+          className="bg-googleRed text-white text-sm w-full py-2 px-4 mr-4 shadow-lg rounded opacity-50 cursor-not-allowed max-h-10"
           disabled={disabled}
           data-testid={testid}
         >
@@ -21,7 +21,7 @@ export const GoogleButton: VFC<Props> = memo((props) => {
         </button>
       ) : (
         <button
-          className="bg-googleRed hover:bg-opacity-80 text-white text-sm w-full py-2 px-4 mr-4 transform hover:scale-105 transition-transform rounded max-h-10"
+          className="bg-googleRed hover:bg-opacity-80 text-white text-sm w-full py-2 px-4 mr-4 shadow-lg transform hover:scale-105 transition-transform rounded max-h-10"
           data-testid={testid}
           onClick={onClick}
         >
