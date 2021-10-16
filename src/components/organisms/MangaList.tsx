@@ -87,17 +87,7 @@ export const MangaList: VFC = () => {
                     <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
                       出版社
                     </th>
-                    <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
-                      {editModeCount > 0 ? "保存" : "編集"}
-                    </th>
-                    {editModeCount > 0 ? (
-                      <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
-                        キャンセル
-                      </th>
-                    ) : null}
-                    <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider">
-                      削除
-                    </th>
+                    <th className="px-2 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 text-navy tracking-wider"></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
