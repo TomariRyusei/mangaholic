@@ -8,21 +8,12 @@ type Props = {
 export const SaveButton: VFC<Props> = memo((props) => {
   const { testid, onClick } = props;
   return (
-    <button onClick={onClick} data-testid={testid}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-green-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
+    <button
+      onClick={onClick}
+      data-testid={testid}
+      className="bg-green-500 hover:bg-opacity-80 text-white text-sm py-2 px-4 mr-2 shadow-lg transform hover:scale-105 transition-transform rounded max-h-10"
+    >
+      保存
     </button>
   );
 });
