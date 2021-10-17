@@ -2,6 +2,7 @@ import { useState, useContext, useCallback, ChangeEvent } from "react";
 import axios from "axios";
 
 import { db } from "./../firebase";
+import firebase from "./../firebase";
 import { AuthContext } from "../providers/Auth";
 import { useFlashMessage } from "./useFlashMessage";
 import { useFormValidation } from "./useFormValidation";
@@ -101,6 +102,8 @@ export const useAddManga = () => {
       title: mangaTitle,
       publisher: mangaPublisher,
       author: mangaAuthor,
+      // サーバー側で処理した時間を格納
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
     try {

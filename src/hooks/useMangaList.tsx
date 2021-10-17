@@ -34,6 +34,7 @@ export const useMangaList = () => {
       .collection("users")
       .doc(userId)
       .collection("mangaList")
+      .orderBy("created_at", "desc")
       .onSnapshot((snapshot) => {
         setMangaList(
           snapshot.docs.map((doc) => ({
