@@ -29,7 +29,7 @@ export const LoginForm: VFC = () => {
       </div>
       <div className="mb-6">
         <p className="text-xs text-red-600">
-          {emailValidationMsg ? emailValidationMsg : "必須"}
+          {emailValidationMsg ?? emailValidationMsg}
         </p>
         <PrimaryInput
           type={"email"}
@@ -42,7 +42,7 @@ export const LoginForm: VFC = () => {
       </div>
       <div className="mb-6">
         <p className="text-xs text-red-600">
-          {passwordValidationMsg ? passwordValidationMsg : "必須"}
+          {passwordValidationMsg ?? passwordValidationMsg}
         </p>
         <PrimaryInput
           type={"password"}
